@@ -1,0 +1,51 @@
+" Use Vim settings, rather then Vi settings (much better!).
+" This must be first, because it changes other options as a side effect.
+set nocompatible
+
+set backspace=indent,eol,start " allow backspacing over everything in insert mode
+set history=50                 " keep 50 lines of command line history
+set ruler                      " show the cursor position all the time
+set showcmd                    " display incomplete commands
+set ch=2                       " Make command line two lines high, otherwise make errors are shortened.
+
+syntax on
+
+set nostartofline
+
+" Better search 
+set incsearch               " show match for partly typed search command
+set ignorecase              " Ignore case in search patterns
+set smartcase               " Override 'ignorecase' if the search pattern
+set hlsearch
+
+set shiftwidth=2
+set tabstop=2
+set expandtab
+set backupext=.bak
+set noswapfile
+set visualbell              " no beeping
+set selectmode=mouse,key    " I want shift-arrows to work
+set keymodel=startsel       " I want shift+arrows to work
+set autoindent              " always set autoindenting on
+set smartindent
+set wrap
+set list
+set number
+set nobackup
+set showmatch
+
+" Stuff from: http://danielmiessler.com/study/vim/
+" or: https://github.com/danielmiessler/vim/blob/master/.vim/vimrc
+" Don't use ESC
+"inoremap jk <ESC>
+" Sane leader key
+"let mapleader = ","
+
+function! Tailf()
+    e
+    normal G
+    redraw
+
+    sleep 1
+    call Tailf()
+endfunction
