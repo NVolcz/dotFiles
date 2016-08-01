@@ -13,21 +13,31 @@ function backup() {
 	subkey=$(sed -e 's:.*\\::' <<< $1 )
 	regPath=${1#"\\"}
 	regPath=$(sed -r 's:/:\\:g' <<< ${regPath})
+
+	if [ ! -z ${2+x} ] ; then
+		filePath="${backupPath}/${2}"
+	else
+		filePath="${backupPath}/${subkey}_backup.reg"
+	fi
+
 	# we could use the /y to force overwrite but don't want to overwrite our backups
-	reg export "${regPath}" "${backupPath}/${subkey}_backup.reg"
+	reg export "${regPath}" "${filePath}"
 }
 
-backup "HKEY_CURRENT_USER" "$backupPath/full_backup.reg"
+backup "HKLM"
+backup "HKCU"
+backup "HKCR"
+backup "HKU"
+backup "HKCC"
+
 # Keys
-readonly control_panel_key="\HKEY_CURRENT_USER\Control Panel"
-readonly desktop_key="${control_panel_key}\HKEY_CURRENT_USER\Control Panel\Desktop"
-readonly window_metric_key="${desktop_key}\WindowMetrics"
-readonly accessibility_key="${control_panel_key}\Accessibility"
 readonly one_drive_explorer_key="\HKEY_CLASSES_ROOT\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}\System.IsPinnedToNameSpaceTree"
-backup "${accessibility_key}"
-backup "${one_drive_explorer_key}"
+readonly personalized_theme_key="\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalized"
+readonly app_light_theme_key="${personalized_theme_key}\AppsUseLightTheme"
+# backup "${one_drive_explorer_key}"
 
 regtool set $one_drive_explorer_key -d 00000000
-# Test
-# echo $(regtool list "${window_metric_key}")
 
+# http://fieldguide.gizmodo.com/how-to-unlock-secret-settings-in-windows-10-1780625579
+regtool add $personalized_theme_key
+regtool set $app_light_theme_key -d 00000000
