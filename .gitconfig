@@ -8,3 +8,8 @@
 	lg = !"git lg1"
 [merge]
 	conflictstyle = diff3
+
+[core]
+	autocrlf = false
+	eol = lf
+	safecrlf = false
