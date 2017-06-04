@@ -1,1 +1,0 @@
-/cygdrive/c/Users/admin/gits/dotfiles/.vim
