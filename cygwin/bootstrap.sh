@@ -3,10 +3,6 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-#
-# TODO
-#
-# Automatically fix line endings
 
 #
 # Preparations
