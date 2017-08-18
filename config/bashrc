@@ -42,6 +42,9 @@ alias la='ls -A'                              # all but . and ..
 # Found https://www.reddit.com/r/programming/comments/3evbbk/how_to_write_a_git_commit_message/ctiuwwz
 alias whatthecommit='git commit -m "`curl whatthecommit.com/index.txt`"'
 
+# Found at: https://stackoverflow.com/questions/33150176/get-subnet-mask-in-linux-using-bash/33150670#33150670
+alias whichnetwork="ip -o -f inet addr show | awk '/scope global/ {print \$4}'"
+
 # Start xserver 
 (XWin -multiwindow -clipboard -silent-dup-error &> /dev/null) & 
 export DISPLAY=:0
