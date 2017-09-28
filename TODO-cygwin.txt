@@ -1,0 +1,25 @@
+ln -s winHome/gits gits
+https://technet.microsoft.com/en-us/sysinternals/bb842062
+
+configure windows support
+	Turn off animation
+	disable sticky keys
+	configure locale? (/HKEY_CURRENT_USER/Control Panel/International/LocalName=en-001)
+	Configure explorer (/HKEY_CURRENT_USER/SOFTWARE/Microsoft/Windows/CurrentWindows/Explorer)
+	Configure clock to
+		short: HH:mm
+		long: HH:mm:ss
+	Add sublimetext3 to path
+	Add ctrl+alt+t for starting terminal
+	Turn off folder name localization
+		http://superuser.com/questions/739631/can-you-make-windows-7-not-localize-folder-names
+
+cygwin configuration
+	add sudo (runas symlink)
+
+link from synced folder
+	shopt -s dotglob
+	ln -s /cygdrive/d/gdrive/Projekt/dotfiles/* ./
+	shopt -u dotglob
+		Should we enable hidden files globbing?
+

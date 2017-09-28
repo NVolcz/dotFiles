@@ -1,0 +1,24 @@
+
+Bash style guides
+	https://github.com/bahamas10/bash-style-guide
+	https://google-styleguide.googlecode.com/svn/trunk/shell.xml#Indentation
+
+
+fit commit
+	https://github.com/m1foley/fit-commit
+	convert to bash?
+
+GNU parallel
+	http://git.savannah.gnu.org/cgit/parallel.git/tree/README
+
+TMUX
+	https://github.com/kaushalmodi/dotfiles/blob/master/.tmux.conf
+	https://bitbucket.org/dburke/tmux-session
+
+less config
+	needs to invoke lesskey command to generate .less binary file
+
+commacd
+	http://shyiko.com/2014/10/10/commacd/
+
+https://github.com/themattrix/bash-concurrent/blob/master/concurrent.lib.sh

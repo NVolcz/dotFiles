@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #inspired by: http://techne.btbytes.com/st3d.html
-cd ~/gits
+cd ~/git
 
 git clone https://github.com/Hackerpilot/DCD.git
 git clone https://github.com/Hackerpilot/Dscanner.git
@@ -10,7 +10,7 @@ git clone https://github.com/Hackerpilot/dfmt.git
 #
 # DCD
 #
-cd ~/gits/DCD
+cd ~/git/DCD
 dub build --build=release --config=client
 dub build --build=release --config=server
 ln -s `realpath dcd-server` ~/bin/dcd-server
@@ -19,7 +19,7 @@ ln -s `realpath dcd-client` ~/bin/dcd-client
 #
 # Dcanner
 #
-cd ~/gits/Dscanner
+cd ~/git/Dscanner
 git submodule update --init --recursive
 dub build --build=release
 ln -s `realpath dscanner` ~/bin/dscanner
@@ -27,7 +27,7 @@ ln -s `realpath dscanner` ~/bin/dscanner
 #
 # dfmt
 #
-cd ~/gits/dfmt
+cd ~/git/dfmt
 git submodule update --init --recursive
 ln -s `realpath dfmt` ~/bin/dfmt
 
