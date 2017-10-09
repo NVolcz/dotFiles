@@ -21,9 +21,10 @@ apt-get install -y \
     software-properties-common \
     gnupg \
     source-highlight \
-    man
+    man \
+    vim
 
-#install sublime text (https://www.sublimetext.com/docs/3/linux_repositories.html)
+# Install sublime text (https://www.sublimetext.com/docs/3/linux_repositories.html)
 curl -fsSL https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
 echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
 
@@ -35,11 +36,18 @@ add-apt-repository -y \
    $(lsb_release -cs) \
    stable"
 
-# update the newly added repos and install docker and sublime-text
-apt-get update
-apt-get install -y docker-ce sublime-text
+# Install chrome
+curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
 
-# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
+# Update the newly added repos and install docker and sublime-text
+apt-get update
+apt-get install -y \
+    docker-ce \
+    sublime-text \
+    google-chrome-stable
+
+# Move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
 mkdir -p ~/dotfiles_old
 
 files=$(ls "$dotfiles_folder/config") 

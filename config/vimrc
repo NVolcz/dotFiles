@@ -7,6 +7,7 @@ set history=50                 " keep 50 lines of command line history
 set ruler                      " show the cursor position all the time
 set showcmd                    " display incomplete commands
 set ch=2                       " Make command line two lines high, otherwise make errors are shortened.
+set cc=81                      " ColorColumn - Highlights the width limit
 
 syntax on
 
@@ -49,3 +50,4 @@ function! Tailf()
     sleep 1
     call Tailf()
 endfunction
+

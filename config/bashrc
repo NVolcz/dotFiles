@@ -138,6 +138,7 @@ downloadDependency() {
     fi
 }
 
+alias vi='vim'
 export EDITOR='vi'
     
 # Check if TMUX exists and if running(?)
