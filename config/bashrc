@@ -1,5 +1,3 @@
-# My bashrc
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -17,23 +15,39 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# History Options
-
-# Don't put duplicate lines in the history.
-export HISTCONTROL=ignoredups
 #
+# History Options
+#
+# Borrowed from: https://unix.stackexchange.com/a/48116
+
+HISTSIZE=9000
+HISTFILESIZE=$HISTSIZE
+HISTCONTROL=ignorespace:ignoredups
+
 # Ignore some controlling instructions
 # HISTIGNORE is a colon-delimited list of patterns which should be excluded.
 # The '&' is a special pattern which suppresses duplicate entries.
 export HISTIGNORE=$'[ \t]*:&:[fb]g:exit'
 export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls' # Ignore the ls command as well
 
-# append to the history file, don't overwrite it
-shopt -s histappend
+_bash_history_sync() {
+  builtin history -a         #1
+  HISTFILESIZE=$HISTSIZE     #2
+  builtin history -c         #3
+  builtin history -r         #4
+}
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
+history() {                  #5
+  _bash_history_sync
+  builtin history "$@"
+}
+
+PROMPT_COMMAND=_bash_history_sync
+
+
+#
+# Other stuff
+#
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -102,7 +116,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+#
 # Aliases
+#
 
 # Default to human readable figures
 alias df='df -h'
@@ -112,13 +128,20 @@ alias du='du -h'
 alias ll='ls -l'                              # long list
 alias la='ls -A'                              # all but . and ..
 alias lla='ls -lA'
-alias l='ls -cf'
+alias l='ls -c'
 
 # Found https://www.reddit.com/r/programming/comments/3evbbk/how_to_write_a_git_commit_message/ctiuwwz
 alias whatthecommit='git commit -m "`curl whatthecommit.com/index.txt`"'
 
 # Found at: https://stackoverflow.com/questions/33150176/get-subnet-mask-in-linux-using-bash/33150670#33150670
 alias whichnetwork="ip -o -f inet addr show | awk '/scope global/ {print \$4}'"
+
+# Clipboard aliases
+alias setclip="xclip -selection c"
+alias getclip="xclip -selection c -o"
+
+# Simple HTTP server
+alias simplehttpserver="python -m SimpleHTTPServer 8000"
 
 set -o vi
 
