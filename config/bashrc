@@ -143,26 +143,37 @@ alias getclip="xclip -selection c -o"
 # Simple HTTP server
 alias simplehttpserver="python -m SimpleHTTPServer 8000"
 
+alias vi='vim'
+
+alias ud='sudo aptitude update && sudo aptitude upgrade'
+
+# r - Remove trailing suffix, t - Remove leading file name components
+alias gitclipclone='git clone $(getclip) && cd !$:r:t'
+
 set -o vi
+export EDITOR='vi'
+
+# cd directly when cloning
+# Borrowed from: https://unix.stackexchange.com/a/97958
+# TODO: Make this beautiful
+git2() {
+   local tmp=$(mktemp)
+   local repo_name
+
+   if [ "$1" = clone ] ; then
+     /usr/bin/git "$@" | tee $tmp
+     repo_name=$(awk -F\' '/Cloning into/ {print $2}' $tmp)
+     rm $tmp
+     printf "changing to directory %s\n" "$repo_name"
+     cd "$repo_name"
+   else
+     /usr/bin/git "$@"
+   fi
+}
 
 command_exists () {
     type "$1" >/dev/null 2>&1 ;
 }
-
-downloadDependency() {
-    local cmd=$1
-    local git_url=$2
-    local path=~/bin/${cmd}
-    local cmd_to_alias=$3
-
-    # Try to download prm if it does not already exist
-    if [[ ! -d "${path}" ]] && command_exists git ; then
-        git clone "${git_url}" "${path}"
-    fi
-}
-
-alias vi='vim'
-export EDITOR='vi'
     
 # Check if TMUX exists and if running(?)
 if command_exists tmux && [ -z "$TMUX" ]; then
@@ -194,5 +205,6 @@ man() {
             man "$@"
 }
 
-PATH=$PATH:~/bin
+# TOOO: Depricate ~/bin
+PATH=$PATH:~/bin:~/.local/bin
 export LANG='en_GB.UTF-8'

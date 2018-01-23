@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 #inspired by: http://techne.btbytes.com/st3d.html
 cd ~/git
@@ -45,7 +45,7 @@ git clone https://github.com/dmi7ry/dfmt-sublime.git
 
 read -d '' USER_CONFIG << EOF
 {
-  "dcd_path": "~/bin/",
+  "dcd_path": "$(realpath ~/bin/)",
   "dcd_port": 9166,
   "include_paths": [
     "/usr/include/dmd/phobos",
@@ -54,7 +54,7 @@ read -d '' USER_CONFIG << EOF
 }
 EOF
 
-echo $USER_CONFIG > ~/.config/sublime-text-3/Packages/User/DKit.sublime-settings
+echo "$USER_CONFIG" > ~/.config/sublime-text-3/Packages/User/DKit.sublime-settings
 
 read -d '' BUILD_SYSTEM << EOF
 {
@@ -81,7 +81,7 @@ read -d '' BUILD_SYSTEM << EOF
 }
 EOF
 
-echo $BUILD_SYSTEM > ~/.config/sublime-text-3/Packages/User/Dlang.sublime-build
+echo "$BUILD_SYSTEM" > ~/.config/sublime-text-3/Packages/User/Dlang.sublime-build
 
 #MANUAL: Install sublimelinter
 
