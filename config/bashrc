@@ -153,6 +153,18 @@ alias gitclipclone='git clone $(getclip) && cd !$:r:t'
 set -o vi
 export EDITOR='vi'
 
+
+# Nice when doing pomodoro
+pomo() {
+  sleep $1; notify-send -u critical "Pomodoro!!"; (play /usr/share/sounds/ubuntu/stereo/system-ready.ogg 2>/dev/null)
+}
+
+# Open Jira issue
+
+jira() {
+  firefox "$JIRA_URL/browse/$1"
+}
+
 # cd directly when cloning
 # Borrowed from: https://unix.stackexchange.com/a/97958
 # TODO: Make this beautiful
@@ -205,6 +217,10 @@ man() {
             man "$@"
 }
 
-# TOOO: Depricate ~/bin
-PATH=$PATH:~/bin:~/.local/bin
+# Environment setup
+
+export GOPATH=~/golang/packages1/
+PATH=$GOPATH/bin:$PATH:~/bin:~/.local/bin
+
 export LANG='en_GB.UTF-8'
+export JIRA_URL=''
