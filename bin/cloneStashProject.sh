@@ -22,9 +22,9 @@ fi
 
 
 
-response=$(curl -H "Accept: application/json" -u "${username}" "${url}")
- 
-for repo_name in $(echo $response | grep -P -o 'clone":\[\{"href":"\Kssh.*?(?=")')
+response=$(curl -s -H "Accept: application/json" -u "${username}" "${url}")
+
+for repo_name in $(echo $response | jq -r '.values[].links.clone[] | select(.name == "ssh") | .href')
 do
     echo "Cloning $repo_name"
     
