@@ -12,17 +12,25 @@ if [ $UID != 0 ]; then
     exit 1
 fi
 
-# Install packages
-apt-get update
-apt-get install -y \
-    apt-transport-https \
+required_software="apt-transport-https \
     ca-certificates \
     curl \
     software-properties-common \
-    gnupg \
-    source-highlight \
+    gnupg"
+
+bashrc_software="source-highlight \
     man \
-    vim
+    vim\
+    git\
+    trash-cli"
+
+nicetohave_software="docker-ce \
+    sublime-text \
+    google-chrome-stable"
+
+# Install packages
+apt-get update
+apt-get install -y $required_software
 
 # Install sublime text (https://www.sublimetext.com/docs/3/linux_repositories.html)
 curl -fsSL https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -
@@ -37,15 +45,12 @@ add-apt-repository -y \
    stable"
 
 # Install chrome
-curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
+curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
 
 # Update the newly added repos and install docker and sublime-text
 apt-get update
-apt-get install -y \
-    docker-ce \
-    sublime-text \
-    google-chrome-stable
+apt-get install -y $bashrc_software $nicetohave_software
 
 # Move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
 mkdir -p ~/dotfiles_old
@@ -65,4 +70,3 @@ done
 if [ ! "$(ls -A ~/dotfiles_old)" ]; then
     rm -r ~/dotfiles_old
 fi
-

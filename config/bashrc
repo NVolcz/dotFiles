@@ -125,10 +125,10 @@ alias df='df -h'
 alias du='du -h'
 
 # Some shortcuts for different directory listings
-alias ll='ls -l'                              # long list
-alias la='ls -A'                              # all but . and ..
+alias ll='ls -l'
+alias la='ls -A'
 alias lla='ls -lA'
-alias l='ls -c'
+alias l='ls'
 
 # Found https://www.reddit.com/r/programming/comments/3evbbk/how_to_write_a_git_commit_message/ctiuwwz
 alias whatthecommit='git commit -m "`curl whatthecommit.com/index.txt`"'
@@ -147,11 +147,21 @@ alias vi='vim'
 
 alias ud='sudo aptitude update && sudo aptitude upgrade'
 
-# r - Remove trailing suffix, t - Remove leading file name components
-alias gitclipclone='git clone $(getclip) && cd !$:r:t'
+alias gitclipclone='git clone $(getclip)'
+
+alias curlh='curl -s -D - -o /dev/null'
+
+alias rm='trash'
+
+alias urldecode='python -c "import sys, urllib as ul; \
+    print ul.unquote_plus(sys.argv[1])"'
+
+# TODO: add option to encode all characters
+alias urlencode='python -c "import sys, urllib as ul; \
+    print ul.quote_plus(sys.argv[1])"'
 
 set -o vi
-export EDITOR='vi'
+export EDITOR='vim'
 
 
 # Nice when doing pomodoro
@@ -160,7 +170,6 @@ pomo() {
 }
 
 # Open Jira issue
-
 jira() {
   firefox "$JIRA_URL/browse/$1"
 }
@@ -183,10 +192,10 @@ git2() {
    fi
 }
 
-command_exists () {
+command_exists() {
     type "$1" >/dev/null 2>&1 ;
 }
-    
+
 # Check if TMUX exists and if running(?)
 if command_exists tmux && [ -z "$TMUX" ]; then
     base_session='tmux'
@@ -219,8 +228,7 @@ man() {
 
 # Environment setup
 
-export GOPATH=~/golang/packages1/
-PATH=$GOPATH/bin:$PATH:~/bin:~/.local/bin
-
+# TOOO: Depricate ~/bin
+PATH=$PATH:~/bin:~/.local/bin
 export LANG='en_GB.UTF-8'
 export JIRA_URL=''
