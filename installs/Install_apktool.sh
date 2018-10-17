@@ -8,4 +8,4 @@ WRAPPER_DEST_FILE="$HOME/.local/bin/apktool"
 
 wget https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_$APKTOOL_VERSION.jar -O "$JAR_DEST_FILE"
 wget https://raw.githubusercontent.com/iBotPeaches/Apktool/master/scripts/linux/apktool -O "$WRAPPER_DEST_FILE"
-chmod +x $WRAPPER_DEST_FILE
+chmod +x "$WRAPPER_DEST_FILE"

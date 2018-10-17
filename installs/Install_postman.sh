@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 set -e
 
 # The script assumes root for installing packages (and stuff)

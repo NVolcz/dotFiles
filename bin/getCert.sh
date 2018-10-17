@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # FROM: https://stackoverflow.com/questions/45243785/script-wrapper-for-openssl-which-will-download-an-entire-certificate-chain-and
 

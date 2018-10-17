@@ -8,11 +8,11 @@ esac
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+      . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+      . /etc/bash_completion
+    fi
 fi
 
 #
@@ -31,15 +31,15 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit'
 export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls' # Ignore the ls command as well
 
 _bash_history_sync() {
-  builtin history -a         #1
-  HISTFILESIZE=$HISTSIZE     #2
-  builtin history -c         #3
-  builtin history -r         #4
+    builtin history -a
+    HISTFILESIZE=$HISTSIZE
+    builtin history -c
+    builtin history -r
 }
 
-history() {                  #5
-  _bash_history_sync
-  builtin history "$@"
+history() {
+    _bash_history_sync
+    builtin history "$@"
 }
 
 PROMPT_COMMAND=_bash_history_sync
@@ -76,16 +76,14 @@ case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
 esac
 
-
-
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
+if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	  # We have color support; assume it's compliant with Ecma-48
+	  # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	  # a case would tend to support setf rather than setaf.)
+	  color_prompt=yes
+else
+	  color_prompt=
+fi
 
 
 if [ "$color_prompt" = yes ]; then
@@ -145,20 +143,19 @@ alias simplehttpserver="python -m SimpleHTTPServer 8000"
 
 alias vi='vim'
 
-alias ud='sudo aptitude update && sudo aptitude upgrade'
+alias ud='sudo aptitude update && sudo aptitude upgrade -y'
 
+# TODO: change this into a function so it can cd as well
 alias gitclipclone='git clone $(getclip)'
 
 alias curlh='curl -s -D - -o /dev/null'
 
 alias rm='trash'
 
-alias urldecode='python -c "import sys, urllib as ul; \
-    print ul.unquote_plus(sys.argv[1])"'
+alias urldecode='python -c "import sys, urllib as ul; print ul.unquote_plus(sys.argv[1])"'
 
 # TODO: add option to encode all characters
-alias urlencode='python -c "import sys, urllib as ul; \
-    print ul.quote_plus(sys.argv[1])"'
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1])"'
 
 set -o vi
 export EDITOR='vim'
@@ -166,30 +163,12 @@ export EDITOR='vim'
 
 # Nice when doing pomodoro
 pomo() {
-  sleep $1; notify-send -u critical "Pomodoro!!"; (play /usr/share/sounds/ubuntu/stereo/system-ready.ogg 2>/dev/null)
+    sleep "$1"; notify-send -u critical "Pomodoro!!"; (play /usr/share/sounds/ubuntu/stereo/system-ready.ogg 2>/dev/null)
 }
 
 # Open Jira issue
 jira() {
-  firefox "$JIRA_URL/browse/$1"
-}
-
-# cd directly when cloning
-# Borrowed from: https://unix.stackexchange.com/a/97958
-# TODO: Make this beautiful
-git2() {
-   local tmp=$(mktemp)
-   local repo_name
-
-   if [ "$1" = clone ] ; then
-     /usr/bin/git "$@" | tee $tmp
-     repo_name=$(awk -F\' '/Cloning into/ {print $2}' $tmp)
-     rm $tmp
-     printf "changing to directory %s\n" "$repo_name"
-     cd "$repo_name"
-   else
-     /usr/bin/git "$@"
-   fi
+    firefox "$JIRA_URL/browse/$1"
 }
 
 command_exists() {
@@ -203,12 +182,12 @@ if command_exists tmux && [ -z "$TMUX" ]; then
     tmux has-session -t $base_session || tmux new-session -d -s $base_session
     # Are there any clients connected already?
     client_cnt=$(tmux list-clients | wc -l)
-    if [ $client_cnt -ge 1 ]; then
+    if [ "$client_cnt" -ge 1 ]; then
         session_name=$base_session"-"$client_cnt
-        tmux new-session -d -t $base_session -s $session_name
-        tmux -2 attach-session -t $session_name \; set-option destroy-unattached
+        tmux new-session -d -t "$base_session" -s "$session_name"
+        tmux -2 attach-session -t "$session_name" \; set-option destroy-unattached
     else
-        tmux -2 attach-session -t $base_session
+        tmux -2 attach-session -t "$base_session"
     fi
 fi
 

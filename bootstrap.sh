@@ -4,7 +4,7 @@ set -o pipefail
 set -o nounset
 
 # VARIABLES
-dotfiles_folder="$(readlink -f $(dirname "${BASH_SOURCE[0]}"))"
+dotfiles_folder="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")")"
 
 # The script assumes root for installing packages (and stuff)
 if [ $UID != 0 ]; then
@@ -26,7 +26,8 @@ bashrc_software="source-highlight \
 
 nicetohave_software="docker-ce \
     sublime-text \
-    google-chrome-stable"
+    google-chrome-stable \
+    rsync"
 
 # Install packages
 apt-get update
