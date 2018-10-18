@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
+
 #inspired by: http://techne.btbytes.com/st3d.html
 cd ~/git
 
@@ -40,10 +41,10 @@ git clone https://github.com/economicmodeling/SublimeLinter-dscanner.git
 git clone https://github.com/dmi7ry/dfmt-sublime.git
 
 #For fedora: cat /etc/dmd.conf
-#/usr/include/dmd/phobos 
+#/usr/include/dmd/phobos
 #/usr/include/dmd/druntime/import
 
-read -r -d '' USER_CONFIG << EOF
+read -r -d '' USER_CONFIG <<EOF
 {
   "dcd_path": "$(realpath ~/bin/)",
   "dcd_port": 9166,
@@ -54,9 +55,9 @@ read -r -d '' USER_CONFIG << EOF
 }
 EOF
 
-echo "$USER_CONFIG" > ~/.config/sublime-text-3/Packages/User/DKit.sublime-settings
+echo "$USER_CONFIG" >~/.config/sublime-text-3/Packages/User/DKit.sublime-settings
 
-read -r -d '' BUILD_SYSTEM << EOF
+read -r -d '' BUILD_SYSTEM <<EOF
 {
     "cmd": ["dmd", "-g", "-debug", "\$file"],
     "file_regex": "^(.*?)\\(([0-9]+),?([0-9]+)?\\): (.*)",
@@ -81,7 +82,6 @@ read -r -d '' BUILD_SYSTEM << EOF
 }
 EOF
 
-echo "$BUILD_SYSTEM" > ~/.config/sublime-text-3/Packages/User/Dlang.sublime-build
+echo "$BUILD_SYSTEM" >~/.config/sublime-text-3/Packages/User/Dlang.sublime-build
 
 #MANUAL: Install sublimelinter
-

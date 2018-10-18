@@ -3,7 +3,6 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-
 #
 # Preparations
 #
@@ -23,16 +22,16 @@ source $dotfiles_folder/.common.sh
 packages_to_install=""
 
 function installPackage() {
-	cmd=$1
-	if [ $# -eq 2 ] ; then
-		pkgName=$2
-	else
-		pkgName=$cmd
-	fi
+  cmd=$1
+  if [ $# -eq 2 ]; then
+    pkgName=$2
+  else
+    pkgName=$cmd
+  fi
 
-	if ! command_exists $cmd ; then
-		packages_to_install="$packages_to_install $pkgName"
-	fi
+  if ! command_exists $cmd; then
+    packages_to_install="$packages_to_install $pkgName"
+  fi
 }
 
 # Packages
@@ -44,7 +43,7 @@ installPackage tmux
 
 # Install packages
 if [ -n "$packages_to_install" ]; then
-	$cygman -q -W -P $packages_to_install
+  $cygman -q -W -P $packages_to_install
 fi
 
 #
@@ -65,4 +64,3 @@ ln -sf $dotfiles_folder/.inputrc ~/.inputrc
 ln -sf $dotfiles_folder/.lesskey ~/.lesskey
 ln -sf $dotfiles_folder/.tmux.conf.txt ~/.tmux.conf.txt
 ln -sf $dotfiles_folder/.vim ~/.vim
-

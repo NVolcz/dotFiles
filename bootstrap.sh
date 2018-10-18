@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
-set -o errexit
-set -o pipefail
-set -o nounset
+set -euo pipefail
 
 # VARIABLES
 dotfiles_folder="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")")"
 
 # The script assumes root for installing packages (and stuff)
 if [ $UID != 0 ]; then
-    echo "You don't have sufficient privileges to run this script."
-    exit 1
+  echo "You don't have sufficient privileges to run this script."
+  exit 1
 fi
 
 required_software="apt-transport-https \
@@ -31,6 +29,7 @@ nicetohave_software="docker-ce \
 
 # Install packages
 apt-get update
+# shellcheck disable=SC2086
 apt-get install -y $required_software
 
 # Install sublime text (https://www.sublimetext.com/docs/3/linux_repositories.html)
@@ -41,7 +40,7 @@ echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 apt-key fingerprint 0EBFCD88
 add-apt-repository -y \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+  "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
    $(lsb_release -cs) \
    stable"
 
@@ -51,23 +50,24 @@ echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee
 
 # Update the newly added repos and install docker and sublime-text
 apt-get update
+# shellcheck disable=SC2086
 apt-get install -y $bashrc_software $nicetohave_software
 
 # Move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
 mkdir -p ~/dotfiles_old
 
-files=$(ls "$dotfiles_folder/config") 
+files=$(ls "$dotfiles_folder/config")
 for file in $files; do
-    dest="$HOME/.$file"
-    src="$dotfiles_folder/config/$file"
+  dest="$HOME/.$file"
+  src="$dotfiles_folder/config/$file"
 
-    if [[ -f "$dest" ]]; then
-	mv "$dest" ~/dotfiles_old/
-    fi
+  if [[ -f "$dest" ]]; then
+    mv "$dest" ~/dotfiles_old/
+  fi
 
-    ln -s "$src" "$dest"
+  ln -s "$src" "$dest"
 done
 
 if [ ! "$(ls -A ~/dotfiles_old)" ]; then
-    rm -r ~/dotfiles_old
+  rm -r ~/dotfiles_old
 fi

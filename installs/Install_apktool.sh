@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 # Get latest version from https://bitbucket.org/iBotPeaches/apktool/downloads
 APKTOOL_VERSION=2.3.3

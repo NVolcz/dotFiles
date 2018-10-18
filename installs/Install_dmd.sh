@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 curl -fsS https://dlang.org/install.sh | bash -s dmd

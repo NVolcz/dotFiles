@@ -8,20 +8,19 @@ set -o nounset
 readonly backupPath="$(cygpath -w ${USERPROFILE})"
 readonly regtool="$(which regtool)"
 
-
 function backup() {
-	subkey=$(sed -e 's:.*\\::' <<< $1 )
-	regPath=${1#"\\"}
-	regPath=$(sed -r 's:/:\\:g' <<< ${regPath})
+  subkey=$(sed -e 's:.*\\::' <<<$1)
+  regPath=${1#"\\"}
+  regPath=$(sed -r 's:/:\\:g' <<<${regPath})
 
-	if [ ! -z ${2+x} ] ; then
-		filePath="${backupPath}/${2}"
-	else
-		filePath="${backupPath}/${subkey}_backup.reg"
-	fi
+  if [ ! -z ${2+x} ]; then
+    filePath="${backupPath}/${2}"
+  else
+    filePath="${backupPath}/${subkey}_backup.reg"
+  fi
 
-	# we could use the /y to force overwrite but don't want to overwrite our backups
-	reg export "${regPath}" "${filePath}"
+  # we could use the /y to force overwrite but don't want to overwrite our backups
+  reg export "${regPath}" "${filePath}"
 }
 
 backup "HKLM"

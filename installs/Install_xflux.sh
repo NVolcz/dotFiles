@@ -1,4 +1,6 @@
 #!/bin/sh
+set -euo pipefail
+
 SHORTCUT="[Desktop Entry]
   Encoding=UTF-8
   Name=xflux
@@ -10,4 +12,4 @@ SHORTCUT="[Desktop Entry]
 wget https://justgetflux.com/linux/xflux64.tgz
 tar -xvzf xflux64.tgz
 rsync -va --delete-after xflux /usr/local/xflux/
-echo "${SHORTCUT}" > "/usr/share/applications/xflux.desktop"
+echo "${SHORTCUT}" >"/usr/share/applications/xflux.desktop"

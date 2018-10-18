@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-set -e
+set -euo pipefail
 
 # The script assumes root for installing packages (and stuff)
 if [ $UID != 0 ]; then
-    echo "You don't have sufficient privileges to run this script."
-    exit 1
+  echo "You don't have sufficient privileges to run this script."
+  exit 1
 fi
 
 #
@@ -16,7 +16,7 @@ tar -xzf postman.tar.gz -C /opt
 rm postman.tar.gz
 ln -sf /opt/Postman/Postman /usr/bin/postman
 
-cat > ~/.local/share/applications/postman.desktop <<EOL
+cat >~/.local/share/applications/postman.desktop <<EOL
 [Desktop Entry]
 Encoding=UTF-8
 Name=Postman

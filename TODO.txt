@@ -2,6 +2,8 @@
 Bash style guides
 	https://github.com/bahamas10/bash-style-guide
 	https://google-styleguide.googlecode.com/svn/trunk/shell.xml#Indentation
+	https://google.github.io/styleguide/shell.xml
+	http://wiki.bash-hackers.org/scripting/style
 
 
 fit commit
