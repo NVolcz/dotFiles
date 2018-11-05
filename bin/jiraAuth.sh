@@ -1,31 +1,38 @@
 #!/usr/bin/env bash
-set -euo pipefail
+#set -euo pipefail
 
 #
 # TODO:
 # - Add bitbucket auth
 #
 
-if [ "$#" -ne 2 ]; then
-  echo "Illegal number of parameters"
-  exit 1
-elif [ -z "$JIRA_URL" ]; then
-  echo "JIRA_URL needs to be set"
-  exit 1
-fi
+jira_auth() {
+  if [ "$#" -ne 2 ]; then
+    echo "Illegal number of parameters"
+    return 1
+  elif [ -z "$JIRA_URL" ]; then
+    echo "JIRA_URL needs to be set"
+    return 1
+  fi
 
-username="$1"
-password="$2"
+  if [ -n "${JIRA_SESSION_ID:-}" ]; then
+    # TODO: test if session is valid
+    # curl $JIRA_URL/jira/rest/auth/1/session -b JSESSIONID=${JIRA_SESSION_ID} -v
+    echo "Reuse Jira session ID"
+    return 0
+  fi
 
-jira_auth_uri="/jira/rest/auth/latest/session"
+  # TODO: Add support for getting username and password from keyring
 
-# Authenticate
-JIRA_SESSION_ID=$(curl -s -H "Content-Type: application/json" -d "{\"username\":\"${username}\",\"password\":\"${password}\"}" -X POST "$JIRA_URL$jira_auth_uri" | sed -r 's/^.+JSESSIONID","value":"([^"]+).+$/\1/ig')
+  username="$1"
+  password="$2"
 
-if echo "$JIRA_SESSION_ID" | grep -q error; then
-  echo "Wrong login or password!"
-  exit 1
-fi
+  jira_auth_uri="$JIRA_URL/jira/rest/auth/1/session"
 
-export JIRA_SESSION_ID
-echo "$JIRA_SESSION_ID"
+  # Authenticate
+  login_response=$(curl -s -H "Content-Type: application/json" -d "{\"username\":\"${username}\",\"password\":\"${password}\"}" -X POST "$jira_auth_uri")
+
+  JIRA_SESSION_ID=$(echo "$login_response" | jq -r '.session.value')
+
+  export JIRA_SESSION_ID="$JIRA_SESSION_ID"
+}

@@ -168,12 +168,14 @@ pomo() {
 
 # Open Jira issue
 jira() {
-    firefox "$JIRA_URL/browse/$1"
+    firefox "$JIRA_URL/jira/browse/$1"
 }
 
 command_exists() {
     type "$1" >/dev/null 2>&1 ;
 }
+
+[ -s "$HOME/git/dotFiles/bin/jiraAuth.sh" ] && \. "$HOME/git/dotFiles/bin/jiraAuth.sh"
 
 # Check if TMUX exists and if running(?)
 if command_exists tmux && [ -z "$TMUX" ]; then

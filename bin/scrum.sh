@@ -20,12 +20,28 @@ elif [ "$#" -eq 2 ]; then
   updatedDate="$2"
 fi
 
-# Always ask for password
-echo -n Password:
-read -r -s password
-echo
+if [ -z "$JIRA_URL" ]; then
+    echo "Need to set JIRA_URL"
+    exit 1
+fi  
 
-# TODO: check if JIRA_SESSION_ID is set/valid
-jiraAuth.sh "$username" "$password"
+if [ -z "${JIRA_SESSION_ID:-}" ]; then
+  # Always ask for password
+  echo -n Password:
+  read -r -s password
+  echo
 
-curl -s "$JIRA_URL/jira/rest/api/2/search" -b JSESSIONID="${JIRA_SESSION_ID}" -H "Content-type: application/json" -X POST -d "{\"jql\": \"issueFunction in commented (\\\"by $username\\\") AND updatedDate > $updatedDate\" }" | jq -r '.issues[] | .key + " ~ " + .fields.summary + " ~ " + .fields.status.name'
+  # TODO: check if JIRA_SESSION_ID is set/valid
+  if ! jira_auth "$username" "$password"; then
+  	exit 1
+  fi
+fi
+
+search_response=$(curl -s $JIRA_URL/jira/rest/api/2/search -b JSESSIONID=${JIRA_SESSION_ID} -H "Content-type: application/json" -X POST -d "{\"jql\": \"issueFunction in commented (\\\"by $username\\\") AND updatedDate > $updatedDate\" }")
+
+if ! jq -e . >/dev/null 2>&1 <<<"$search_response"; then
+    echo "Failed to parse JSON, or got false/null"
+    exit 1
+fi
+
+echo "$search_response" | jq -r '.issues[] | .key + " ~ " + .fields.summary + " ~ " + .fields.status.name'
