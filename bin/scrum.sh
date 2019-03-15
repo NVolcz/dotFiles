@@ -25,22 +25,18 @@ if [ -z "$JIRA_URL" ]; then
     exit 1
 fi  
 
-if [ -z "${JIRA_SESSION_ID:-}" ]; then
-  # Always ask for password
-  echo -n Password:
-  read -r -s password
-  echo
+password=$(keyring get jira $username)
 
-  # TODO: check if JIRA_SESSION_ID is set/valid
-  if ! jira_auth "$username" "$password"; then
-  	exit 1
-  fi
+if [ -z "$password" ]; then
+  echo "Could not find \"jira $username\" in keyring"
+  exit 1
 fi
 
-search_response=$(curl -s $JIRA_URL/jira/rest/api/2/search -b JSESSIONID=${JIRA_SESSION_ID} -H "Content-type: application/json" -X POST -d "{\"jql\": \"issueFunction in commented (\\\"by $username\\\") AND updatedDate > $updatedDate\" }")
+search_response=$(curl -s -u $username:$password $JIRA_URL/jira/rest/api/2/search -H "Content-type: application/json" -X POST -d "{\"jql\": \"(issueFunction in commented (\\\"by $username\\\") OR issue in watchedIssues()) AND updatedDate > $updatedDate\" }")
 
 if ! jq -e . >/dev/null 2>&1 <<<"$search_response"; then
     echo "Failed to parse JSON, or got false/null"
+    echo "$search_response"
     exit 1
 fi
 

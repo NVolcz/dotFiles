@@ -48,6 +48,11 @@ add-apt-repository -y \
 curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
 echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
 
+# For vscode
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main" > /etc/apt/sources.list.d/vscode.list'
+
 # Update the newly added repos and install docker and sublime-text
 apt-get update
 # shellcheck disable=SC2086

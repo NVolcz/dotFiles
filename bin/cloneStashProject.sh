@@ -9,7 +9,7 @@ set -euo pipefail
 if [ $# -eq 2 ]; then
   username="$1"
   team="$2"
-  if [ -z "$BITBUCKET_URL" ]; then
+  if [ -n "$BITBUCKET_URL" ]; then
     url="${BITBUCKET_URL}/rest/api/1.0/projects/$team/repos"
   else
     url="https://api.bitbucket.org/1.0/users/${1}"

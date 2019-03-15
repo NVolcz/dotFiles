@@ -30,21 +30,6 @@ HISTCONTROL=ignorespace:ignoredups
 export HISTIGNORE=$'[ \t]*:&:[fb]g:exit'
 export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls' # Ignore the ls command as well
 
-_bash_history_sync() {
-    builtin history -a
-    HISTFILESIZE=$HISTSIZE
-    builtin history -c
-    builtin history -r
-}
-
-history() {
-    _bash_history_sync
-    builtin history "$@"
-}
-
-PROMPT_COMMAND=_bash_history_sync
-
-
 #
 # Other stuff
 #
@@ -157,6 +142,10 @@ alias urldecode='python -c "import sys, urllib as ul; print ul.unquote_plus(sys.
 # TODO: add option to encode all characters
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1])"'
 
+#Utility required by all below functions.
+#https://stackoverflow.com/questions/369758/how-to-trim-whitespace-from-bash-variable#comment21953456_3232433
+alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
+
 set -o vi
 export EDITOR='vim'
 
@@ -174,8 +163,6 @@ jira() {
 command_exists() {
     type "$1" >/dev/null 2>&1 ;
 }
-
-[ -s "$HOME/git/dotFiles/bin/jiraAuth.sh" ] && \. "$HOME/git/dotFiles/bin/jiraAuth.sh"
 
 # Check if TMUX exists and if running(?)
 if command_exists tmux && [ -z "$TMUX" ]; then
@@ -212,4 +199,5 @@ man() {
 # TOOO: Depricate ~/bin
 PATH=$PATH:~/bin:~/.local/bin
 export LANG='en_GB.UTF-8'
-export JIRA_URL=''
+#export JIRA_URL=''
+#export BITBUCKET_URL=''

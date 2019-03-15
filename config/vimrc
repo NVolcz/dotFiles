@@ -11,6 +11,9 @@ set cc=81                      " ColorColumn - Highlights the width limit
 
 syntax on
 
+" Enable fzf?
+set rtp+=~/.fzf
+
 set nostartofline
 
 " Better search 
@@ -41,13 +44,3 @@ set showmatch
 "inoremap jk <ESC>
 " Sane leader key
 "let mapleader = ","
-
-function! Tailf()
-    e
-    normal G
-    redraw
-
-    sleep 1
-    call Tailf()
-endfunction
-
