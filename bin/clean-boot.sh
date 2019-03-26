@@ -1,18 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # BETLOG - 2018-03-31--19-48-34
 # based on https://gist.github.com/jbgo/5016064
 
 echo -ne "CAUTION::\\nThis script apt-get removes all but the currently operational kernel"
 
-read -p "Continue? (y/n)?" answer
+read -p -r "Continue? (y/n)?" answer
 case ${answer:0:1} in
     y|Y )
         sudo -v
-        current=`uname -r`
-        available=`dpkg -l | grep -Po "linux-image.*generic"`
+        current=$(uname -r)
+        available=$(dpkg -l | grep -Po "linux-image.*generic")
         remove=()
         for name in $available; do
-            if [[ ${name/$current/} == ${name} ]]; then
+            if [[ "${name/$current/}" == "${name}" ]]; then
                 remove+=("$name")
             fi
         done

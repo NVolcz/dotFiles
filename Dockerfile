@@ -9,9 +9,10 @@ ARG CACHE_DATE=not_a_date
 #RUN git clone https://github.com/NVolcz/dotFiles.git git/dotFiles
 ADD ./ /root/git/dotFiles
 
-RUN chmod +x git/dotFiles/bootstrap.sh
+RUN chmod +x /root/git/dotFiles/bootstrap.sh
+RUN chmod +x /root/git/dotFiles/test/docker-test.sh
 
 RUN mkdir -p /root/.local/bin/
 RUN mkdir -p /root/.local/share/applications/
 
-RUN /bin/bash -c "source git/dotFiles/bootstrap.sh"
+RUN /bin/bash -c "source /root/git/dotFiles/bootstrap.sh"
