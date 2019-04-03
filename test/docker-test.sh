@@ -19,6 +19,7 @@ fi
 
 
 for f in $(find installs -type f | sort -u); do
+  echo "Running $f"
   source $f
   if [ $? -ne 0 ]; then
     echo "Failed to run $f"

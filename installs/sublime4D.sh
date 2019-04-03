@@ -14,8 +14,8 @@ git clone https://github.com/Hackerpilot/dfmt.git
 cd ~/git/DCD
 dub build --build=release --config=client
 dub build --build=release --config=server
-ln -s "$(realpath dcd-server)" ~/bin/dcd-server
-ln -s "$(realpath dcd-client)" ~/bin/dcd-client
+ln -s "$(realpath dcd-server)" ~/.local/bin/dcd-server
+ln -s "$(realpath dcd-client)" ~/.local/bin/dcd-client
 
 #
 # Dcanner
@@ -23,14 +23,14 @@ ln -s "$(realpath dcd-client)" ~/bin/dcd-client
 cd ~/git/Dscanner
 git submodule update --init --recursive
 dub build --build=release
-ln -s "$(realpath dscanner)" ~/bin/dscanner
+ln -s "$(realpath dscanner)" ~/.local/bin/dscanner
 
 #
 # dfmt
 #
 cd ~/git/dfmt
 git submodule update --init --recursive
-ln -s "$(realpath dfmt)" ~/bin/dfmt
+ln -s "$(realpath dfmt)" ~./local/bin/dfmt
 
 #
 # Sublime-text Packages
@@ -46,7 +46,7 @@ git clone https://github.com/dmi7ry/dfmt-sublime.git
 
 read -r -d '' USER_CONFIG <<EOF
 {
-  "dcd_path": "$(realpath ~/bin/)",
+  "dcd_path": "$(realpath ~/.local/bin/)",
   "dcd_port": 9166,
   "include_paths": [
     "/usr/include/dmd/phobos",

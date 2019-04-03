@@ -1,4 +1,9 @@
-.PHONY: test lint-dockerfile build-docker build-docker-no-cache run-docker
+export SHELL:=/bin/bash
+export SHELLOPTS:=$(if $(SHELLOPTS),$(SHELLOPTS):)pipefail:errexit
+
+.ONESHELL:
+
+.PHONY: test lint-dockerfile build-docker-no-cache
 
 BASH_SCRIPTS = $(shell find . -iname '*.sh' -not -path './cygwin/*')
 
@@ -9,7 +14,7 @@ test:
 lint-dockerfile:
 	docker run --rm -i hadolint/hadolint < Dockerfile
 
-build-docker:
+build-docker: Dockerfile $(BASH_SCRIPTS)
 	docker build -t nvolcz/dotfiles .
 
 build-docker-no-cache:
@@ -18,5 +23,10 @@ build-docker-no-cache:
 run-docker:
 	docker run -it nvolcz/dotfiles /bin/bash
 
-test-docker:
-	docker run -it nvolcz/dotfiles /bin/bash -c 'cd /root/git/dotFiles/; ./test/docker-test.sh'
+test-docker: build-docker
+	CONTAINER_ID=$(shell docker run -t -d nvolcz/dotfiles)
+	@echo $$CONTAINER_ID
+	trap 'docker kill $$CONTAINER_ID' EXIT
+	docker exec -it $$CONTAINER_ID \
+	bash -c 'cd /root/git/dotFiles; ./test/docker-test.sh'
+

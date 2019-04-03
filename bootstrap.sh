@@ -36,18 +36,37 @@ apt-get install -y $required_software $bashrc_software $other_software
 # Move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
 mkdir -p ~/dotfiles_old
 
-files=$(ls "$dotfiles_folder/config")
-for file in $files; do
-  dest="$HOME/.$file"
-  src="$dotfiles_folder/config/$file"
+dotfiles_dir="$HOME/git/dotFiles"
+config_dir="$dotfiles_dir/config"
+files=$(find "$config_dir" -maxdepth 1 -type f)
 
-  if [[ -f "$dest" ]]; then
-    mv "$dest" ~/dotfiles_old/
-  fi
+function linkDotFiles {
+  local src_dir=$1
+  local dest_dir=$2
+  local prefix=${3-"."}
 
-  ln -s "$src" "$dest"
-done
+  for file in $src_dir/*; do
+    local file="$(basename $file)"
+    local src="$src_dir/$file"
+    local dest="$dest_dir/$prefix$file"
 
-if [ ! "$(ls -A ~/dotfiles_old)" ]; then
-  rm -r ~/dotfiles_old
-fi
+    # Directories are special...
+    if [[ -d "$src" ]]; then
+      if [[ "$file" -eq "config" ]]; then
+        linkDotFiles "$src" "$dest" ""
+        continue
+      fi
+    fi
+
+    if [[ -f "$dest" ]]; then
+      if [[ ! "$src" -ef "$dest" ]]; then
+        mv "$dest" ~/dotfiles_old/
+      fi
+      continue
+    fi
+
+    ln -s "$src" "$dest"
+  done
+}
+
+linkDotFiles "$dotfiles_dir/config" "$HOME"
