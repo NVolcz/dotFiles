@@ -14,5 +14,6 @@ RUN chmod +x /root/git/dotFiles/test/docker-test.sh
 
 RUN mkdir -p /root/.local/bin/
 RUN mkdir -p /root/.local/share/applications/
+RUN mkdir /root/.config
 
 RUN /bin/bash -c "source /root/git/dotFiles/bootstrap.sh"

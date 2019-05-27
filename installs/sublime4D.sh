@@ -30,7 +30,7 @@ ln -s "$(realpath dscanner)" ~/.local/bin/dscanner
 #
 cd ~/git/dfmt
 git submodule update --init --recursive
-ln -s "$(realpath dfmt)" ~./local/bin/dfmt
+ln -s "$(realpath dfmt)" ~/.local/bin/dfmt
 
 #
 # Sublime-text Packages

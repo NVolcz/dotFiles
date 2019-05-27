@@ -23,6 +23,9 @@ build-docker-no-cache:
 run-docker:
 	docker run -it nvolcz/dotfiles /bin/bash
 
+run-docker-mount-volume:
+	docker run -v $PWD:/root/git/dotFiles -it nvolcz/dotfiles bash
+
 test-docker: build-docker
 	CONTAINER_ID=$(shell docker run -t -d nvolcz/dotfiles)
 	@echo $$CONTAINER_ID

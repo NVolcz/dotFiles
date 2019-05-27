@@ -24,3 +24,6 @@ commacd
 	http://shyiko.com/2014/10/10/commacd/
 
 https://github.com/themattrix/bash-concurrent/blob/master/concurrent.lib.sh
+
+
+https://github.com/crusoexia/vim-monokai

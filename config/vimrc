@@ -10,13 +10,14 @@ set ch=2                       " Make command line two lines high, otherwise mak
 set cc=81                      " ColorColumn - Highlights the width limit
 
 syntax on
+colorscheme vim-monokai-tasty
 
 " Enable fzf?
 set rtp+=~/.fzf
 
 set nostartofline
 
-" Better search 
+" Better search
 set incsearch               " show match for partly typed search command
 set ignorecase              " Ignore case in search patterns
 set smartcase               " Override 'ignorecase' if the search pattern
@@ -61,3 +62,16 @@ autocmd FileChangedShellPost *
 " Remove trailing white spaces.
 " Borrowed from: https://makandracards.com/makandra/11541-how-to-not-leave-trailing-whitespace-using-your-editor-or-git
 autocmd BufWritePre * :%s/\s\+$//e
+
+highlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+set cursorline
+
+" Ispired by: https://www.youtube.com/watch?v=XA2WjJbmmoM
+" Finding files
+
+" Search down into subfolders
+" Provides tab-completion for all file-related tasks
+set path+=**
+
+" Display all matching files when we do tab completion
+set wildmenu

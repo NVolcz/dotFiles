@@ -12,26 +12,30 @@ fi
 
 # Software required for the bootstrap
 required_software="apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common \
-    gnupg"
+  ca-certificates \
+  curl \
+  software-properties-common \
+  gnupg"
 
 bashrc_software="source-highlight \
-    man \
-    vim\
-    git\
-    trash-cli"
+  man \
+  vim\
+  git\
+  trash-cli"
 
 # wget - Used by installs/apktool.sh
 # rsync - installs/gitkraken_64.sh
+# fontconfig - required for source code pro install
+# exuberant-ctags - used for generating ctags for vim setup
 other_software="wget \
-rsync"
+  rsync \
+  fontconfig \
+  exuberant-ctags"
 
 # Install packages
-apt-get update
+apt-get update -q
 # shellcheck disable=SC2086
-apt-get install -y $required_software $bashrc_software $other_software
+apt-get install -q -y $required_software $bashrc_software $other_software
 
 # Move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
 mkdir -p ~/dotfiles_old
@@ -52,17 +56,24 @@ function linkDotFiles {
 
     # Directories are special...
     if [[ -d "$src" ]]; then
-      if [[ "$file" -eq "config" ]]; then
-        linkDotFiles "$src" "$dest" ""
-        continue
+      if [[ ! -d "$dest" ]]; then
+        # Not sure this is the correct action to take here...
+        mkdir "$dest"
       fi
+
+      if [[ "$file" == "config" ]]; then
+        linkDotFiles "$src" "$dest" ""
+      fi
+      continue
     fi
 
     if [[ -f "$dest" ]]; then
-      if [[ ! "$src" -ef "$dest" ]]; then
+      if [[ "$src" -ef "$dest" ]]; then
+        # Maybe it is better to add -f to ln?
+        rm "$dest"
+      else
         mv "$dest" ~/dotfiles_old/
       fi
-      continue
     fi
 
     ln -s "$src" "$dest"
