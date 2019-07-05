@@ -75,3 +75,5 @@ set path+=**
 
 " Display all matching files when we do tab completion
 set wildmenu
+
+set autoread

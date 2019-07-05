@@ -21,9 +21,9 @@ elif [ "$#" -eq 2 ]; then
 fi
 
 if [ -z "$JIRA_URL" ]; then
-    echo "Need to set JIRA_URL"
-    exit 1
-fi  
+  echo "Need to set JIRA_URL"
+  exit 1
+fi
 
 password=$(keyring get jira "$username")
 
@@ -35,9 +35,9 @@ fi
 search_response=$(curl -s -u "$username:$password" "$JIRA_URL/jira/rest/api/2/search" -H "Content-type: application/json" -X POST -d "{\"jql\": \"(issueFunction in commented (\\\"by $username\\\") OR issue in watchedIssues()) AND updatedDate > $updatedDate\" }")
 
 if ! jq -e . >/dev/null 2>&1 <<<"$search_response"; then
-    echo "Failed to parse JSON, or got false/null"
-    echo "$search_response"
-    exit 1
+  echo "Failed to parse JSON, or got false/null"
+  echo "$search_response"
+  exit 1
 fi
 
 echo "$search_response" | jq -r '.issues[] | .key + " ~ " + .fields.summary + " ~ " + .fields.status.name'

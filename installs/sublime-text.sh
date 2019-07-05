@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-
+set -euo pipefail
 
 # Install sublime text (https://www.sublimetext.com/docs/3/linux_repositories.html)
 curl -fsSL https://download.sublimetext.com/sublimehq-pub.gpg | apt-key add -

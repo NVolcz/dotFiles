@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 cd $HOME/git
 git clone https://github.com/patstockwell/vim-monokai-tasty.git

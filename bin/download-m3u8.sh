@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-ffmpeg -protocol_whitelist file,http,https,tcp,tls,crypto -i "$1" -c copy $2
+ffmpeg -protocol_whitelist file,http,https,tcp,tls,crypto -i "$1" -c copy "$2"

@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
+set -euo pipefail
+
 # Userland mode (~$USER/), (~/).
 
 # ~/.fonts is now deprecated and that

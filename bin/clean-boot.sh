@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -euo pipefail
+
 # BETLOG - 2018-03-31--19-48-34
 # based on https://gist.github.com/jbgo/5016064
 

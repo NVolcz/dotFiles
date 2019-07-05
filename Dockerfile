@@ -7,7 +7,7 @@ RUN mkdir -p /root/git
 ARG CACHE_DATE=not_a_date
 
 #RUN git clone https://github.com/NVolcz/dotFiles.git git/dotFiles
-ADD ./ /root/git/dotFiles
+COPY ./ /root/git/dotFiles
 
 RUN chmod +x /root/git/dotFiles/bootstrap.sh
 RUN chmod +x /root/git/dotFiles/test/docker-test.sh

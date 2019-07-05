@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # For vscode
 curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | apt-key add -

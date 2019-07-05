@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # Not sure if this is needed...
 #rm -r ~/.config/pulse /tmp/pulse-*

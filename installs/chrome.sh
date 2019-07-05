@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # Install chrome
 curl -fsSL https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -

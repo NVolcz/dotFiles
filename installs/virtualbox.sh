@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # Install VirtualBox
 curl -fsSL https://www.virtualbox.org/download/oracle_vbox_2016.asc | apt-key add -

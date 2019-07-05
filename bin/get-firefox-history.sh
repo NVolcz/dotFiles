@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
 db=$(find "${HOME}/.mozilla/firefox/" -name "places.sqlite")
 tmp_file="$(mktemp -d)/places.sqlite"
 cp "$db" "$tmp_file"
