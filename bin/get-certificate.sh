@@ -60,64 +60,64 @@ nl=$'\n'
 state=begin
 while IFS= read -r line <&3; do
   case "$state;$line" in
-    "begin;Certificate chain")
-      # First certificate is about to begin!
-      state=reading
-      current_cert=""
-      certname=""
-      ;;
+  "begin;Certificate chain")
+    # First certificate is about to begin!
+    state=reading
+    current_cert=""
+    certname=""
+    ;;
 
-    "reading;-----END CERTIFICATE-----")
-      # Last line of a cert; save it and get ready for the next
-      current_cert+="${current_cert:+$nl}$line"
+  "reading;-----END CERTIFICATE-----")
+    # Last line of a cert; save it and get ready for the next
+    current_cert+="${current_cert:+$nl}$line"
 
-      # Pick a name to save the cert under
-      if [[ "$certname" == */CN=* ]]; then
-        certfile="${certname#*/CN=}"
-        certfile="${certfile%%/*}"
-        certfile="${certfile// /_}.crt"
-      elif [[ -n "$certname" && "$certname" != "/" ]]; then
-        certfile="${certname#/}"
-        certfile="${certfile//\//:}"
-        certfile="${certfile// /_}.crt"
-      else
-        echo "???No name found for certificate" >&2
-        certfile="Unknown_certificate.crt"
-      fi
+    # Pick a name to save the cert under
+    if [[ "$certname" == */CN=* ]]; then
+      certfile="${certname#*/CN=}"
+      certfile="${certfile%%/*}"
+      certfile="${certfile// /_}.crt"
+    elif [[ -n "$certname" && "$certname" != "/" ]]; then
+      certfile="${certname#/}"
+      certfile="${certfile//\//:}"
+      certfile="${certfile// /_}.crt"
+    else
+      echo "???No name found for certificate" >&2
+      certfile="Unknown_certificate.crt"
+    fi
 
-      # ...and try to save it
-      if [[ -e "$certfile" ]]; then
-        echo "Already exists: $certfile" >&2
-      else
-        echo "Saving cert: $certfile"
-        echo "$current_cert" >"$certfile"
-      fi
+    # ...and try to save it
+    if [[ -e "$certfile" ]]; then
+      echo "Already exists: $certfile" >&2
+    else
+      echo "Saving cert: $certfile"
+      echo "$current_cert" >"$certfile"
+    fi
 
-      state=reading
-      current_cert=""
-      certname=""
-      ;;
+    state=reading
+    current_cert=""
+    certname=""
+    ;;
 
-    "reading; "*" s:"*)
-      # This is the cert subject summary from openssl
-      certname="${line#*:}"
-      current_cert+="${current_cert:+$nl}Subject: ${line#*:}"
-      ;;
+  "reading; "*" s:"*)
+    # This is the cert subject summary from openssl
+    certname="${line#*:}"
+    current_cert+="${current_cert:+$nl}Subject: ${line#*:}"
+    ;;
 
-    "reading; "*" i:"*)
-      # This is the cert issuer summary from openssl
-      current_cert+="${current_cert:+$nl}Issuer:  ${line#*:}"
-      ;;
+  "reading; "*" i:"*)
+    # This is the cert issuer summary from openssl
+    current_cert+="${current_cert:+$nl}Issuer:  ${line#*:}"
+    ;;
 
-    "reading;---")
-      # That's the end of the certs...
-      break
-      ;;
+  "reading;---")
+    # That's the end of the certs...
+    break
+    ;;
 
-    "reading;"*)
-      # Otherwise, it's a normal part of a cert; accumulate it to be
-      # written out when we see the end
-      current_cert+="$nl$line"
-      ;;
+  "reading;"*)
+    # Otherwise, it's a normal part of a cert; accumulate it to be
+    # written out when we see the end
+    current_cert+="$nl$line"
+    ;;
   esac
 done 3<<<"$connect_output"

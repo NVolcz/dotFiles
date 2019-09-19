@@ -11,6 +11,9 @@ test:
 	./test/shellcheck.sh $(BASH_SCRIPTS)
 	./test/check-safe-bash.sh $(BASH_SCRIPTS)
 
+format-scripts:
+	shfmt -i 2 -w $(BASH_SCRIPTS)
+
 lint-dockerfile:
 	docker run --rm -i hadolint/hadolint < Dockerfile
 

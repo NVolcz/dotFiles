@@ -8,21 +8,21 @@ echo -ne "CAUTION::\\nThis script apt-get removes all but the currently operatio
 
 read -p -r "Continue? (y/n)?" answer
 case ${answer:0:1} in
-    y|Y )
-        sudo -v
-        current=$(uname -r)
-        available=$(dpkg -l | grep -Po "linux-image.*generic")
-        remove=()
-        for name in $available; do
-            if [[ "${name/$current/}" == "${name}" ]]; then
-                remove+=("$name")
-            fi
-        done
-        sudo apt-get remove ${remove[@]}
-        sudo apt-get autoremove
-        echo FINISHED
-    ;;
-    * )
-        echo ABORTING;
-    ;;
+y | Y)
+  sudo -v
+  current=$(uname -r)
+  available=$(dpkg -l | grep -Po "linux-image.*generic")
+  remove=()
+  for name in $available; do
+    if [[ "${name/$current/}" == "${name}" ]]; then
+      remove+=("$name")
+    fi
+  done
+  sudo apt-get remove ${remove[@]}
+  sudo apt-get autoremove
+  echo FINISHED
+  ;;
+*)
+  echo ABORTING
+  ;;
 esac

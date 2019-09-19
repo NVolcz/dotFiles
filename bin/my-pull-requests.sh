@@ -28,13 +28,12 @@ if [ -z "$password" ]; then
 fi
 
 pr_response="$(curl -s "$BITBUCKET_URL/rest/api/1.0/dashboard/pull-requests?state=OPEN" \
--H 'Accept: application/json, text/javascript, */*; q=0.01' \
--H 'Accept-Language: en-US,en;q=0.5' \
--H 'Content-Type: application/json; charset=utf-8'  \
--u "$username:$password")"
+  -H 'Accept: application/json, text/javascript, */*; q=0.01' \
+  -H 'Accept-Language: en-US,en;q=0.5' \
+  -H 'Content-Type: application/json; charset=utf-8' \
+  -u "$username:$password")"
 
 echo
 echo "Pull requests:"
-echo "$pr_response" |  jq -rj '.values[] | "\(.title) - \(.links.self[0].href)\n"'
+echo "$pr_response" | jq -rj '.values[] | "\(.title) - \(.links.self[0].href)\n"'
 echo
-

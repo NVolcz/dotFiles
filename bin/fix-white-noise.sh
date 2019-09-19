@@ -7,4 +7,3 @@ set -euo pipefail
 
 # Found at: https://wiki.archlinux.org/index.php/Dell_XPS_13_(9360)#Continuous_hissing_sound_with_headphones
 amixer -c PCH cset 'name=Headphone Mic Boost Volume' 1
-

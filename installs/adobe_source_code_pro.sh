@@ -13,8 +13,8 @@ mkdir -p "$FONT_HOME/adobe-fonts/source-code-pro"
 # find "$FONT_HOME" -iname '*.ttf' -exec echo '{}' \;
 
 (git clone \
-   --branch release \
-   --depth 1 \
-   'https://github.com/adobe-fonts/source-code-pro.git' \
-   "$FONT_HOME/adobe-fonts/source-code-pro" && \
-fc-cache -f -v "$FONT_HOME/adobe-fonts/source-code-pro")
+  --branch release \
+  --depth 1 \
+  'https://github.com/adobe-fonts/source-code-pro.git' \
+  "$FONT_HOME/adobe-fonts/source-code-pro" &&
+  fc-cache -f -v "$FONT_HOME/adobe-fonts/source-code-pro")

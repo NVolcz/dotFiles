@@ -1,18 +1,18 @@
 # If not running interactively, don't do anything
 case $- in
-  *i*) ;;
-      *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-    if [ -f /usr/share/bash-completion/bash_completion ]; then
-      . /usr/share/bash-completion/bash_completion
-    elif [ -f /etc/bash_completion ]; then
-      . /etc/bash_completion
-    fi
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
 fi
 
 #
@@ -47,56 +47,55 @@ shopt -s checkwinsize
 
 # color less
 if [ -x /usr/share/source-highlight/src-hilite-lesspipe.sh ]; then
-    export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
-    export LESS=' -R '
+  export LESSOPEN="| /usr/share/source-highlight/src-hilite-lesspipe.sh %s"
+  export LESS=' -R '
 fi
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+  debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+xterm-color | *-256color) color_prompt=yes ;;
 esac
 
 if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	  # We have color support; assume it's compliant with Ecma-48
-	  # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	  # a case would tend to support setf rather than setaf.)
-	  color_prompt=yes
+  # We have color support; assume it's compliant with Ecma-48
+  # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+  # a case would tend to support setf rather than setaf.)
+  color_prompt=yes
 else
-	  color_prompt=
+  color_prompt=
 fi
 
-
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+  PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
 unset color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
+xterm* | rxvt*)
+  PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+  ;;
+*) ;;
+
 esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  alias dir='dir --color=auto'
+  alias vdir='vdir --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
 fi
 
 #
@@ -146,65 +145,69 @@ alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.ar
 #https://stackoverflow.com/questions/369758/how-to-trim-whitespace-from-bash-variable#comment21953456_3232433
 alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
 
+highlight() {
+  grep -E --color "$1|$"
+}
+
 set -o vi
 export EDITOR='vim'
 
-
 # Nice when doing pomodoro. Sleeps specified number of seconds.
 pomo() {
-    sleep "$1"; notify-send -u critical "Pomodoro!!"; (play /usr/share/sounds/ubuntu/stereo/system-ready.ogg 2>/dev/null)
+  sleep "$1"
+  notify-send -u critical "Pomodoro!!"
+  (play /usr/share/sounds/ubuntu/stereo/system-ready.ogg 2>/dev/null)
 }
 
 # Open Jira issue
 jira() {
-    firefox "$JIRA_URL/jira/browse/$1"
+  firefox "$JIRA_URL/jira/browse/$1"
 }
 
 command_exists() {
-    type "$1" >/dev/null 2>&1 ;
+  type "$1" >/dev/null 2>&1
 }
 
 # Check if TMUX exists and if running(?)
 if command_exists tmux && [ -z "$TMUX" ]; then
-    base_session='tmux'
-    # Create a new session if it doesn't exist
-    tmux has-session -t $base_session || tmux new-session -d -s $base_session
-    # Are there any clients connected already?
-    client_cnt=$(tmux list-clients | wc -l)
-    if [ "$client_cnt" -ge 1 ]; then
-        session_name=$base_session"-"$client_cnt
-        tmux new-session -d -t "$base_session" -s "$session_name"
-        tmux -2 attach-session -t "$session_name" \; set-option destroy-unattached
-    else
-        tmux -2 attach-session -t "$base_session"
-    fi
+  base_session='tmux'
+  # Create a new session if it doesn't exist
+  tmux has-session -t $base_session || tmux new-session -d -s $base_session
+  # Are there any clients connected already?
+  client_cnt=$(tmux list-clients | wc -l)
+  if [ "$client_cnt" -ge 1 ]; then
+    session_name=$base_session"-"$client_cnt
+    tmux new-session -d -t "$base_session" -s "$session_name"
+    tmux -2 attach-session -t "$session_name" \; set-option destroy-unattached
+  else
+    tmux -2 attach-session -t "$base_session"
+  fi
 fi
 
 # Improvement for man for bash builtins.
 # Borrowed from: https://unix.stackexchange.com/a/18088
-manbash () {
-    case "$(type -t "$1"):$1" in
-        builtin:*) help "$1" | "${PAGER:-less}";;     # built-in
-        *[[?*]*) help "$1" | "${PAGER:-less}";;       # pattern
-        *) command -p man "$@";;  # something else, presumed to be an external command
-                                  # or options for the man command or a section number
-    esac
+manbash() {
+  case "$(type -t "$1"):$1" in
+  builtin:*) help "$1" | "${PAGER:-less}" ;; # built-in
+  *[[?*]*) help "$1" | "${PAGER:-less}" ;; # pattern
+  *) command -p man "$@" ;; # something else, presumed to be an external command
+    # or options for the man command or a section number
+  esac
 }
 
 # Colors for man page
 # http://boredzo.org/blog/archives/2016-08-15/colorized-man-pages-understood-and-customized
 man() {
-    env \
-        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-        LESS_TERMCAP_md=$(printf "\e[1;31m") \
-        LESS_TERMCAP_me=$(printf "\e[0m") \
-        LESS_TERMCAP_se=$(printf "\e[0m") \
-        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-        LESS_TERMCAP_ue=$(printf "\e[0m") \
-        LESS_TERMCAP_us=$(printf "\e[1;32m") \
-            man "$@"
+  env \
+    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+    man "$@"
 }
-
 
 # Environment setup
 

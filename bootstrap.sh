@@ -44,7 +44,7 @@ dotfiles_dir="$HOME/git/dotFiles"
 config_dir="$dotfiles_dir/config"
 files=$(find "$config_dir" -maxdepth 1 -type f)
 
-function linkDotFiles {
+function linkDotFiles() {
   local src_dir=$1
   local dest_dir=$2
   local prefix=${3-"."}

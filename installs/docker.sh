@@ -9,4 +9,3 @@ add-apt-repository -y \
    stable"
 
 apt install -y docker-ce
-

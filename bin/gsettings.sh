@@ -8,7 +8,6 @@ gsettings set org.gnome.desktop.interface clock-show-seconds false
 
 gsettings set org.gnome.desktop.calendar show-weekdate true
 
-
 # In order to free up <Shift><Alt>
 gsettings reset org.gnome.desktop.input-sources xkb-options
 

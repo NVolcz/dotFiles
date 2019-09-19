@@ -10,7 +10,7 @@ set ch=2                       " Make command line two lines high, otherwise mak
 set cc=81                      " ColorColumn - Highlights the width limit
 
 syntax on
-colorscheme vim-monokai-tasty
+colorscheme monokai
 
 " Enable fzf?
 set rtp+=~/.fzf

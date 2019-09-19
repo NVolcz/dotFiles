@@ -17,7 +17,6 @@ if [ ./bootstrap.sh -ne 0 ]; then
   exit 1
 fi
 
-
 for f in $(find installs -type f | sort -u); do
   echo "Running $f"
   source "$f"
