@@ -58,9 +58,14 @@ function linkDotFiles() {
     if [[ -d "$src" ]]; then
       if [[ ! -d "$dest" ]]; then
         # Not sure this is the correct action to take here...
+        # Maybe I should link to the dotFiles directory instead of creating a new one...
         mkdir "$dest"
+        linkDotFiles "$src" "$dest" ""
+      else
+        linkDotFiles "$src" "$dest" ""
       fi
 
+      # TODO: Make sure that this is git/dotFiles/config/config and not another config directory...
       if [[ "$file" == "config" ]]; then
         linkDotFiles "$src" "$dest" ""
       fi
@@ -74,6 +79,10 @@ function linkDotFiles() {
       else
         mv "$dest" ~/dotfiles_old/
       fi
+    elif [[ -L "$dest" ]]; then
+      # This if-statement is to check if a symlink exist but is broken.
+      # Maybe it is better to add -f to ln?
+      rm "$dest"
     fi
 
     ln -s "$src" "$dest"
