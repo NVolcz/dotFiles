@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# VARIABLES
-dotfiles_folder="$(readlink -f "$(dirname "${BASH_SOURCE[0]}")")"
-
 # The script assumes root for installing packages (and stuff)
 if [ $UID != 0 ]; then
   echo "You don't have sufficient privileges to run this script."
@@ -42,7 +39,6 @@ mkdir -p ~/dotfiles_old
 
 dotfiles_dir="$HOME/git/dotFiles"
 config_dir="$dotfiles_dir/config"
-files=$(find "$config_dir" -maxdepth 1 -type f)
 
 function linkDotFiles() {
   local src_dir=$1

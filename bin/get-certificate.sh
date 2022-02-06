@@ -19,7 +19,7 @@ if (($# < 1)); then # No server address specified
   usage
 
 elif [[ "$1" == *://* ]]; then # proto://domain format
-  port="${1%%://*}" # Just use the protocol name as the port; let openssl look it up
+  port="${1%%://*}"            # Just use the protocol name as the port; let openssl look it up
   server="${1#*://}"
   server="${server%%/*}"
 

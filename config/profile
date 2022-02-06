@@ -1,0 +1,2 @@
+
+export DCONF_PROFILE=$HOME/.config/dconf/profile

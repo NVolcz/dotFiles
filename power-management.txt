@@ -1,0 +1,15 @@
+# A collection of notes for power management on Linux
+
+- [Powertop](https://wiki.archlinux.org/title/powertop)
+- tlp
+- auto-cpufreq
+
+`cat /sys/power/mem_sleep`
+
+
+
+
+# TODO
+- [Investigate hiberation](https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate)
+- Investigate Intel Rapid Start Technology
+- Investigate possibility to use suspend-then-hibernate

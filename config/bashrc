@@ -1,4 +1,5 @@
 # If not running interactively, don't do anything
+# Explanation why: https://unix.stackexchange.com/a/257613/386492
 case $- in
 *i*) ;;
 *) return ;;
@@ -19,16 +20,20 @@ fi
 # History Options
 #
 # Borrowed from: https://unix.stackexchange.com/a/48116
-
+# and from: https://unix.stackexchange.com/a/556267/386492
 HISTSIZE=9000
 HISTFILESIZE=$HISTSIZE
-HISTCONTROL=ignorespace:ignoredups
-
+HISTCONTROL=ignoreboth:erasedups
+HISTTIMEFORMAT="%F %T: "
+HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls:ll:git status:ud:clear'
+shopt -s histappend
+function historymerge {
+      history -n; history -w; history -c; history -r;
+}
+trap historymerge EXIT
+PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 # Ignore some controlling instructions
-# HISTIGNORE is a colon-delimited list of patterns which should be excluded.
 # The '&' is a special pattern which suppresses duplicate entries.
-export HISTIGNORE=$'[ \t]*:&:[fb]g:exit'
-export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls' # Ignore the ls command as well
 
 #
 # Other stuff
@@ -127,7 +132,7 @@ alias simplehttpserver="python -m SimpleHTTPServer 8000"
 
 alias vi='vim'
 
-alias ud='sudo aptitude update && sudo aptitude upgrade -y'
+
 
 # TODO: change this into a function so it can cd as well
 alias gitclipclone='git clone $(getclip)'
@@ -144,6 +149,23 @@ alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.ar
 #Utility required by all below functions.
 #https://stackoverflow.com/questions/369758/how-to-trim-whitespace-from-bash-variable#comment21953456_3232433
 alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
+
+ud() {
+  sudo aptitude update
+  sudo aptitude upgrade -y
+
+  sudo fwupdmgr refresh
+  sudo fwupdmgr update -y
+
+  sudo snap refresh
+
+  pipupgrade --self --pip --yes --latest
+  pipupgrade --yes --latest
+
+  go get -u all
+
+  cargo install-update -a
+}
 
 highlight() {
   grep -E --color "$1|$"
@@ -209,6 +231,10 @@ man() {
     man "$@"
 }
 
+# Borrowed from: https://unix.stackexchange.com/a/49066/386492
+zlipd() (printf "\x1f\x8b\x08\x00\x00\x00\x00\x00" |cat - $@ |gzip -dc)
+
+
 # Environment setup
 
 # TOOO: Deprecate ~/bin
@@ -217,3 +243,5 @@ export LANG='en_GB.UTF-8'
 #export JIRA_URL=''
 #export BITBUCKET_URL=''
 
+# Borrowed from: https://anarc.at/blog/2020-03-02-moving-dconf-entries-to-git/
+export DCONF_PROFILE=$HOME/.config/dconf/profile

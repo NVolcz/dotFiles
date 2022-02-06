@@ -1,0 +1,16 @@
+[org/freedesktop/ibus/general]
+hotkey=['']
+
+[org/gnome/desktop/wm/keybindings]
+switch-group=['']
+switch-group-backward=['']
+switch-applications=['<Super>Tab']
+switch-applications-backward=['<Shift><Super>Tab']
+switch-windows=['<Alt>Tab']
+switch-windows-backward=['<Shift><Alt>Tab']
+
+[org/gnome/desktop/interface]
+enable-animations=false
+clock-format='24h'
+clock-show-date=true
+clock-show-seconds=false

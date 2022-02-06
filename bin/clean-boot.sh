@@ -4,17 +4,17 @@ set -euo pipefail
 # BETLOG - 2018-03-31--19-48-34
 # based on https://gist.github.com/jbgo/5016064
 
-echo -ne "CAUTION::\\nThis script apt-get removes all but the currently operational kernel"
+echo -ne "CAUTION::\\nThis script apt-get removes all but the currently operational kernel\\n"
 
-read -p -r "Continue? (y/n)?" answer
+read -p "Continue? (y/n)?" -r answer
 case ${answer:0:1} in
 y | Y)
   sudo -v
   current=$(uname -r)
-  available=$(dpkg -l | grep -Po "linux-image.*generic")
+  available=$(dpkg -l | grep -Po "linux-image\S*generic")
   remove=()
   for name in $available; do
-    if [[ "${name/$current/}" == "${name}" ]]; then
+    if [[ ${name/$current/} == ${name} ]]; then
       remove+=("$name")
     fi
   done
