@@ -11,19 +11,21 @@
 
   autoamend = commit --amend -CHEAD
 
+  diffs = diff --staged
+
+  root = rev-parse --show-toplevel
+
 [merge]
-	conflictstyle = diff3
+  conflictstyle = diff3
 
 [core]
-	autocrlf = false
-	eol = lf
-	# Warn when line enings are converted
+  autocrlf = false
+  eol = native
   safecrlf = warn
-
 [apply]
   whitespace = fix
-
 [pull]
+  # https://blog.sffc.xyz/post/185195398930/why-you-should-use-git-pull-ff-only-git-is-a
   ff = only
-[http]
-	cookiefile = /home/niklas/.gitcookies
+[push]
+  default = current
