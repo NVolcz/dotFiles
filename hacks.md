@@ -26,3 +26,6 @@ time_total:  %{time_total}s\n
 ```
 
 Command: `curl -w "@curl-format.txt" -o /dev/null -s "http://wordpress.com/"`
+
+## Fix end-of-line in Git repository
+```git ls-tree --full-tree -r --name-only HEAD | head -n 3 | tee /dev/tty | xargs -I{} sed -i -e '$a\' {}```

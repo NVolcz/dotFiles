@@ -75,8 +75,36 @@ else
   color_prompt=
 fi
 
+# Code borrowed from toledo prompt: https://github.com/mmatongo/toledo/blob/master/toledo
+parse_git_dirty() {
+  STATUS="$(git status 2> /dev/null)"
+  RESULT=''
+  case "$STATUS" in *"renamed"*) RESULT="${cyan}~${reset}"; ;; esac
+  case "$STATUS" in *"branch is ahead"*) RESULT="$RESULT${purple}!${reset}"; ;; esac
+  case "$STATUS" in *"new file"*) RESULT="$RESULT${blue}+${reset}"; ;; esac
+  case "$STATUS" in *"Untracked files"*) RESULT="$RESULT${cyan}?${reset}"; ;; esac
+  case "$STATUS" in *"modified"*) RESULT="$RESULT${yellow}*${reset}"; ;; esac
+  case "$STATUS" in *"deleted"*) RESULT="$RESULT${red}-${reset}"; ;; esac
+  case "$STATUS" in *"branch is behind"*) RESULT="$RESULT${red}ˬˬ${reset}"; ;; esac
+  if [ ! -z $RESULT ]; then
+    printf "[$RESULT]"
+  fi
+}
+
+# export the colours
+red='\033[0;31m'
+cyan='\033[0;96m'
+yellow='\033[0;92m'
+blue='\033[0;34m'
+reset='\e[0m'
+purple='\033[0;35m'
+
+parse_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
 if [ "$color_prompt" = yes ]; then
-  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\] $(parse_git_branch)$(parse_git_dirty) \n\$ '
 else
   PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -118,7 +146,7 @@ alias lla='ls -lA'
 alias l='ls'
 
 # Found https://www.reddit.com/r/programming/comments/3evbbk/how_to_write_a_git_commit_message/ctiuwwz
-alias whatthecommit='git commit -m "$(curl -q whatthecommit.com/index.txt)"'
+alias whatthecommit='git commit -m "$(curl -s whatthecommit.com/index.txt)"'
 
 # Found at: https://stackoverflow.com/questions/33150176/get-subnet-mask-in-linux-using-bash/33150670#33150670
 alias whichnetwork="ip -o -f inet addr show | awk '/scope global/ {print \$4}'"
@@ -156,7 +184,7 @@ alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.ar
 #https://stackoverflow.com/questions/369758/how-to-trim-whitespace-from-bash-variable#comment21953456_3232433
 alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
 
-alias groot="cd $(git root)"
+alias groot='cd $(git root)'
 
 ud() {
   sudo aptitude update

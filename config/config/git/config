@@ -29,3 +29,5 @@
   ff = only
 [push]
   default = current
+[log]
+ date = iso
