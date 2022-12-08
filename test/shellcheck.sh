@@ -1,16 +1,18 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Borrowed from https://github.com/jessfraz/dotfiles/blob/master/test.sh
+# Inspired by: https://github.com/jessfraz/dotfiles/blob/master/test.sh
 
 ERRORS=()
 
-if [[ $# -eq 0 ]]; then
-  input="$(find . -type f -not -path './cygwin/*' -not -iwholename '*.git*' \
-    -exec sh -c 'file -b "$1" | grep -q "shell"' sh {} \; -print)"
-else
-  input=("$@")
+input=("$@")
+
+if ! command -v shellcheck &> /dev/null
+then
+    echo "shellcheck is not installed!"
+    exit 1
 fi
+
 # Sort input magic
 readarray -t input < <(printf '%s\n' "${input[@]}" | sort)
 
@@ -25,6 +27,8 @@ done
 
 if [ ${#ERRORS[@]} -eq 0 ]; then
   echo "No errors, hooray"
+  exit 0
 else
   echo "These files failed shellcheck: ${ERRORS[*]}"
+  exit 1
 fi

@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# The script assumes root for installing packages (and stuff)
-if [ $UID != 0 ]; then
-  echo "You don't have sufficient privileges to run this script."
-  exit 1
-fi
-
 # Software required for the bootstrap
 required_software="apt-transport-https \
   ca-certificates \
@@ -30,9 +24,9 @@ other_software="wget \
   exuberant-ctags"
 
 # Install packages
-apt-get update -q
+sudo apt-get update -q
 # shellcheck disable=SC2086
-apt-get install -q -y $required_software $bashrc_software $other_software
+sudo apt-get install -q -y $required_software $bashrc_software $other_software
 
 # Move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
 mkdir -p ~/dotfiles_old

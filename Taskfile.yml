@@ -1,0 +1,57 @@
+version: '3'
+
+vars:
+  BASH_SCRIPTS:
+    sh: find . -iname '*.sh' -not -path './cygwin/*' | xargs echo
+
+tasks:
+  test:
+    cmds:
+      - echo {{.BASH_SCRIPTS}}
+      - ./test/shellcheck.sh {{.BASH_SCRIPTS}}
+      - ./test/check-safe-bash.sh {{.BASH_SCRIPTS}}
+    sources:
+      - "**/*.sh"
+      #- "{{.BASH_SCRIPTS}}"
+
+  format-scripts:
+    cmds:
+      - shfmt -i 2 -w $(BASH_SCRIPTS)
+    sources:
+      - "**/*.sh"
+      #- "{{.BASH_SCRIPTS}}"
+
+  lint-containerfile:
+    cmds:
+      - podman run --rm -i hadolint/hadolint < Containerfile
+    sources:
+      - Containerfile
+
+  build-container:
+    cmds:
+      - podman build --format=docker -t nvolcz/dotfiles .
+      - podman build --format=docker -t nvolcz/dotfiles-base --target base .
+      - podman build --format=docker -t nvolcz/dotfiles-bootstrapped --target bootstrapped .
+    sources:
+      - Containerfile
+      - "{bin,config,installs}/*"
+
+  run-container:
+    deps: [build-container]
+    cmds:
+      - podman run -it nvolcz/dotfiles /bin/bash
+
+  run-container-base:
+    deps: [build-container]
+    cmds:
+      - podman run -it nvolcz/dotfiles-base /bin/bash
+
+  test-container:
+    deps: [build-container]
+    cmds:
+      - | 
+        CONTAINER_ID=$(podman run -t -d nvolcz/dotfiles)
+        echo ${CONTAINER_ID}
+        trap 'podman kill ${CONTAINER_ID}' EXIT
+        podman exec -it $CONTAINER_ID \
+        bash -c 'cd /home/niklas/git/dotFiles; sudo bash ./test/container-test.sh'

@@ -76,7 +76,7 @@ else
 fi
 
 # Code borrowed from toledo prompt: https://github.com/mmatongo/toledo/blob/master/toledo
-parse_git_dirty() {
+parse_git_dirty () {
   STATUS="$(git status 2> /dev/null)"
   RESULT=''
   case "$STATUS" in *"renamed"*) RESULT="${cyan}~${reset}"; ;; esac
@@ -99,7 +99,7 @@ blue='\033[0;34m'
 reset='\e[0m'
 purple='\033[0;35m'
 
-parse_git_branch() {
+parse_git_branch () {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
 
@@ -145,6 +145,8 @@ alias la='ls -A'
 alias lla='ls -lA'
 alias l='ls'
 
+alias docker='podman'
+
 # Found https://www.reddit.com/r/programming/comments/3evbbk/how_to_write_a_git_commit_message/ctiuwwz
 alias whatthecommit='git commit -m "$(curl -s whatthecommit.com/index.txt)"'
 
@@ -187,8 +189,8 @@ alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
 alias groot='cd $(git root)'
 
 ud() {
-  sudo aptitude update
-  sudo aptitude upgrade -y
+  sudo apt update
+  sudo apt upgrade -y
 
   sudo fwupdmgr refresh
   sudo fwupdmgr update -y
