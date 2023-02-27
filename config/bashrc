@@ -169,7 +169,6 @@ alias simplehttpserver="python -m SimpleHTTPServer 8000"
 alias vi='vim'
 
 
-
 # TODO: change this into a function so it can cd as well
 alias gitclipclone='git clone $(getclip)'
 
@@ -187,6 +186,8 @@ alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.ar
 alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
 
 alias groot='cd $(git root)'
+
+alias code="code --enable-features=WaylandWindowDecorations --ozone-platform=wayland"
 
 ud() {
   sudo apt update
@@ -274,12 +275,13 @@ zlipd() (printf "\x1f\x8b\x08\x00\x00\x00\x00\x00" |cat - $@ |gzip -dc)
 
 
 # Environment setup
-
-# TOOO: Deprecate ~/bin
-PATH=$PATH:~/bin:~/.local/bin
 export LANG='en_GB.UTF-8'
 #export JIRA_URL=''
 #export BITBUCKET_URL=''
 
 # Borrowed from: https://anarc.at/blog/2020-03-02-moving-dconf-entries-to-git/
 export DCONF_PROFILE=$HOME/.config/dconf/profile
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

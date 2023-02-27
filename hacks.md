@@ -1,3 +1,8 @@
+# Bash hacks
+
+## Pipe std streams
+`command 2>&1 | another-command`
+
 # Hacks
 
 ## Install local CA for pip
@@ -29,3 +34,26 @@ Command: `curl -w "@curl-format.txt" -o /dev/null -s "http://wordpress.com/"`
 
 ## Fix end-of-line in Git repository
 ```git ls-tree --full-tree -r --name-only HEAD | head -n 3 | tee /dev/tty | xargs -I{} sed -i -e '$a\' {}```
+
+## Download apt package and dependencies
+Useful for installing a package on a computer without network.
+Borrowed from: https://stackoverflow.com/a/27469489
+
+Download:
+```
+apt-get download $(apt-rdepends <package>|grep -v "^ " |grep -v "^libc-dev$")
+```
+
+Install:
+```
+sudo dpkg -i *.deb
+```
+
+## Copy image to clipboard
+`xclip -selection clipboard -t image/png -i example.png`
+
+
+## mandb trigger taking forever
+
+1. Empty man-db cache: `sudo mandb -t && sudo rm -rf /var/cache/man/ && sudo mandb -c`
+2. `sudo dpkg -- configure -a`

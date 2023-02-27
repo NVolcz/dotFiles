@@ -10,7 +10,9 @@ set ch=2                       " Make command line two lines high, otherwise mak
 set cc=81                      " ColorColumn - Highlights the width limit
 
 syntax on
-colorscheme monokai
+let g:vim_monokai_tasty_italic = 1
+colorscheme vim-monokai-tasty
+set t_Co=256
 
 " Enable fzf?
 set rtp+=~/.fzf
@@ -38,6 +40,9 @@ set list
 set number
 set nobackup
 set showmatch
+
+" Invaluable hack from: https://stackoverflow.com/a/7078429
+cmap w!! w !sudo tee > /dev/null %
 
 " Stuff from: http://danielmiessler.com/study/vim/
 " or: https://github.com/danielmiessler/vim/blob/master/.vim/vimrc

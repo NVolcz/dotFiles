@@ -41,3 +41,14 @@ https://github.com/bluez/bluez/issues/159
 
 TODO:
 - What is no AVRCP? (https://wiki.archlinux.org/title/Bluetooth_headset#Apple_AirPods_have_low_volume)
+
+# Less syntax highlightning
+The most common way to implement syntax highlightning in less is by piping the buffer through source-highlight
+using the LESSOPEN environment variable.
+```
+export LESSOPEN="|-/path/to/src-hilite-lesspipe.sh %s"
+export LESS=-R
+```
+It is however annoying to have to keep the colors up-to-date between different tools, vscode, vim, less etc. 
+TODO: Investigate if there is a "standard" way to highlight source code for my tooling.
+One way would be to contribute an [source-highlight color config](https://www.gnu.org/software/src-highlite/source-highlight.html#Output-format-style) to the [vim-monokai-tasty repo](https://github.com/patstockwell/vim-monokai-tasty/).

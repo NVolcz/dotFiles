@@ -21,3 +21,11 @@ natural-scroll=false
 [org.gnome.shell.extensions.dash-to-dock]
 autohide=true
 
+[org.gnome.settings-daemon.plugins.color]
+night-light-enabled=true
+
+[org.freedesktop.ibus.panel.emoji]
+hotkey=['']
+
+[org.gnome.desktop.calendar]
+show-weekdate=true

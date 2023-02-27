@@ -26,4 +26,20 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+if [ -d "$HOME/Android" ] ; then
+    ANDROID_HOME=${HOME}/Android/Sdk
+    PATH="${ANDROID_HOME}/tools:${PATH}"
+    PATH="${ANDROID_HOME}/emulator:${PATH}"
+    PATH="${ANDROID_HOME}/platform-tools:${PATH}"
+fi
+
+if [ -d "/usr/local/go/bin" ] ; then
+    PATH=$PATH:/usr/local/go/bin
+fi
+
 export DCONF_PROFILE=$HOME/.config/dconf/profile
+
+# From: https://forum.snapcraft.io/t/scrolling-in-firefox-snap/21162/2
+export MOZ_USE_XINPUT2=1
+# From: https://www.omgubuntu.co.uk/2022/10/fix-firefox-blurry-wayland-fonts-ubuntu
+export MOZ_ENABLE_WAYLAND=1

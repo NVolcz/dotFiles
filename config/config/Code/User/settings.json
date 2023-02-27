@@ -1,4 +1,10 @@
 {
     "workbench.colorTheme": "Default Dark+",
-    "window.titleBarStyle": "custom"
+    "window.titleBarStyle": "custom",
+    "editor.minimap.enabled": false,
+    "testExplorer.useNativeTesting": true,
+    "editor.rulers": [
+        80,
+        120
+    ]
 }
