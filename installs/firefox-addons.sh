@@ -17,3 +17,6 @@ firefox "https://addons.mozilla.org/firefox/downloads/file/4028976/"
 
 # Swedish Dictionary
 firefox "https://addons.mozilla.org/firefox/downloads/file/3539390/"
+
+# TODO: Find a way to install other Firefox configurations:
+# Disable "mute tab"-button - browser.tabs.showAudioPlayingIcon false

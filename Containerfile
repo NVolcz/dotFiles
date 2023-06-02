@@ -16,7 +16,7 @@ RUN mkdir /home/niklas/git
 COPY --chown=niklas ./ ./git/dotFiles
 
 FROM base as bootstrapped
-RUN /bin/bash -c "sudo bash ./git/dotFiles/bootstrap.sh"
+RUN "./git/dotFiles/bootstrap.sh"
 
 
 #RUN chmod +x /root/git/dotFiles/bootstrap.sh

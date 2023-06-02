@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+trap "echo; exit" INT
+sudo apt update
+sudo apt upgrade -y
+
+sudo fwupdmgr refresh
+sudo fwupdmgr update -y
+
+sudo snap refresh
+
+pipupgrade --self --pip --yes --latest
+pipupgrade --yes --latest
+
+go get -u all
+
+cargo install-update -a

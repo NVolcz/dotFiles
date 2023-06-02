@@ -32,6 +32,10 @@ code --install-extension ronnidc.nunjucks
 
 code --install-extension dbaeumer.vscode-eslint
 
+code --install-extension streetsidesoftware.code-spell-checker
+
+code --install-extension mechatroner.rainbow-csv
+
 # TODO:
 # Add ` --enable-features=UseOzonePlatform --ozone-platform=wayland` 
 # to /usr/share/applications/code.desktop

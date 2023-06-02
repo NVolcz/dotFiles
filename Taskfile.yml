@@ -34,12 +34,13 @@ tasks:
       - podman build --format=docker -t nvolcz/dotfiles-bootstrapped --target bootstrapped .
     sources:
       - Containerfile
-      - "{bin,config,installs}/*"
+      - "{bin,config,installs,local}/*"
+      - bootstrap.sh
 
   run-container:
     deps: [build-container]
     cmds:
-      - podman run -it nvolcz/dotfiles /bin/bash
+      - podman run -it nvolcz/dotfiles-bootstrapped /bin/bash
 
   run-container-base:
     deps: [build-container]

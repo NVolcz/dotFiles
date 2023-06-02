@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [ -f ${1:-.env} ]; then
+    set -a
+    source ${1:-.env} 
+    set +a
+fi

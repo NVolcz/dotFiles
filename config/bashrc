@@ -189,23 +189,6 @@ alias groot='cd $(git root)'
 
 alias code="code --enable-features=WaylandWindowDecorations --ozone-platform=wayland"
 
-ud() {
-  sudo apt update
-  sudo apt upgrade -y
-
-  sudo fwupdmgr refresh
-  sudo fwupdmgr update -y
-
-  sudo snap refresh
-
-  pipupgrade --self --pip --yes --latest
-  pipupgrade --yes --latest
-
-  go get -u all
-
-  cargo install-update -a
-}
-
 highlight() {
   grep -E --color "$1|$"
 }
@@ -213,9 +196,9 @@ highlight() {
 set -o vi
 export EDITOR='vim'
 
-# Nice when doing pomodoro. Sleeps specified number of seconds.
+# Nice when doing pomodoro. Sleeps specified number of minutes.
 pomo() {
-  sleep "$1"
+  sleep "$((60*$1))"
   notify-send -u critical "Pomodoro!!"
   (play /usr/share/sounds/ubuntu/stereo/system-ready.ogg 2>/dev/null)
 }

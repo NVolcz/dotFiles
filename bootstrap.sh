@@ -15,11 +15,9 @@ bashrc_software="source-highlight \
   trash-cli"
 
 # wget - Used by installs/apktool.sh
-# rsync - installs/gitkraken_64.sh
 # fontconfig - required for source code pro install
 # exuberant-ctags - used for generating ctags for vim setup
 other_software="wget \
-  rsync \
   fontconfig \
   exuberant-ctags"
 
@@ -44,21 +42,15 @@ function linkDotFiles() {
     local src="$src_dir/$file"
     local dest="$dest_dir/$prefix$file"
 
-    # Directories are special...
+    # Directories are special. Re-use existing directories when possible
     if [[ -d "$src" ]]; then
       if [[ ! -d "$dest" ]]; then
-        # Not sure this is the correct action to take here...
-        # Maybe I should link to the dotFiles directory instead of creating a new one...
         mkdir "$dest"
         linkDotFiles "$src" "$dest" ""
       else
         linkDotFiles "$src" "$dest" ""
       fi
 
-      # TODO: Make sure that this is git/dotFiles/config/config and not another config directory...
-      if [[ "$file" == "config" ]]; then
-        linkDotFiles "$src" "$dest" ""
-      fi
       continue
     fi
 
@@ -80,3 +72,10 @@ function linkDotFiles() {
 }
 
 linkDotFiles "$dotfiles_dir/config" "$HOME"
+
+# I could put the files in "bin" under "config/local/bin" but that would
+# mix configuration files with scripts so I think it is wise
+if [[ ! -d "$HOME/.local/bin" ]]; then
+  mkdir -p "$HOME/.local/bin"
+fi
+linkDotFiles "$dotfiles_dir/bin" "$HOME/.local/bin" ""
