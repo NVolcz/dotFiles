@@ -42,6 +42,26 @@ https://github.com/bluez/bluez/issues/159
 TODO:
 - What is no AVRCP? (https://wiki.archlinux.org/title/Bluetooth_headset#Apple_AirPods_have_low_volume)
 
+How to get bluetooth debug logs:
+```
+sudo systemctl mask --runtime bluetooth.service
+sudo systemctl stop bluetooth.service
+sudo /usr/libexec/bluetooth/bluetoothd -n -d '*' 2>&1 | tee bluetooth.log
+```
+
+[The PipeWire in 22.04 and 22.10 both has aptX and AAC disabled at compile time](https://gist.github.com/the-spyke/2de98b22ff4f978ebf0650c90e82027e?permalink_comment_id=4346694#gistcomment-4346694)
+Anna Glasgall has created a PPA for PipeWire with aptX and AAC enabled:
+```
+sudo add-apt-repository ppa:aglasgall/pipewire-extra-bt-codecs
+sudo apt update
+```
+
+There's a lot of debate as to whether higher sampling rates improve sound quality (TL;DR: stick with 44K):
+https://www.mojo-audio.com/blog/the-24bit-delusion/
+https://web.archive.org/web/20200418033300/http://people.xiph.org/~xiphmont/demo/neil-young.html
+
+Good read: https://habr.com/en/post/456182/
+
 # Less syntax highlightning
 The most common way to implement syntax highlightning in less is by piping the buffer through source-highlight
 using the LESSOPEN environment variable.
