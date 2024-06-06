@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # For vscode (from: https://code.visualstudio.com/docs/setup/linux)
-curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor >packages.microsoft.gpg
 sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
 sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 rm -f packages.microsoft.gpg
@@ -18,7 +18,6 @@ code --install-extension ms-vscode.makefile-tools
 # TODO: Replace if there ever is a plugin that integrates to the official test API.
 # See: https://github.com/hbenl/vscode-mocha-test-adapter/issues/184
 code --install-extension hbenl.vscode-mocha-test-adapter
-
 
 # Prefer ronnidc.nunjucks over eseom.nunjucks-template for now.
 # They seem very similar but ronnidc seems:

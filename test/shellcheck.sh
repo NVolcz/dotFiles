@@ -7,10 +7,9 @@ ERRORS=()
 
 input=("$@")
 
-if ! command -v shellcheck &> /dev/null
-then
-    echo "shellcheck is not installed!"
-    exit 1
+if ! command -v shellcheck &>/dev/null; then
+  echo "shellcheck is not installed!"
+  exit 1
 fi
 
 # Sort input magic

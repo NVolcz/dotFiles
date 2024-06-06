@@ -5,6 +5,7 @@ sudo apt install -y \
   python3-pip \
   tmux xclip \
   jq \
-  podman
+  podman \
+  shfmt
 
 pip install pipupgrade

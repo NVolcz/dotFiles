@@ -16,7 +16,7 @@ tasks:
 
   format-scripts:
     cmds:
-      - shfmt -i 2 -w $(BASH_SCRIPTS)
+      - shfmt -i 2 -w {{.BASH_SCRIPTS}}
     sources:
       - "**/*.sh"
       #- "{{.BASH_SCRIPTS}}"

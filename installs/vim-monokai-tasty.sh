@@ -6,7 +6,7 @@ cd $HOME/git
 if [ -d "vim-monokai-tasty" ]; then
   cd vim-monokai-tasty
   git pull
-else 
+else
   git clone https://github.com/patstockwell/vim-monokai-tasty.git
   cd vim-monokai-tasty
 fi

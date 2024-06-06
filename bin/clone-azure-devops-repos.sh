@@ -16,6 +16,6 @@ ORG="$1"
 PROJECT="$2"
 
 az repos list --org "$ORG" --project "$PROJECT" | jq -r '.[].remoteUrl' |
-while read repo; do
-  git clone "$repo"
-done
+  while read repo; do
+    git clone "$repo"
+  done
