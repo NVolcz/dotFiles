@@ -187,8 +187,6 @@ alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
 
 alias groot='cd $(git root)'
 
-alias code="code --enable-features=WaylandWindowDecorations --ozone-platform=wayland"
-
 highlight() {
   grep -E --color "$1|$"
 }

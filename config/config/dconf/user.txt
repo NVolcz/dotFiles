@@ -32,3 +32,7 @@ show-weekdate=true
 
 [org.gnome.nautilus.preferences]
 default-sort-order = 'type'
+
+[org.gnome.desktop.peripherals.touchpad]
+natural-scroll=false
+
