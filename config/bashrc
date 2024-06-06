@@ -262,7 +262,3 @@ export LANG='en_GB.UTF-8'
 
 # Borrowed from: https://anarc.at/blog/2020-03-02-moving-dconf-entries-to-git/
 export DCONF_PROFILE=$HOME/.config/dconf/profile
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

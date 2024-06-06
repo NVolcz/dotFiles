@@ -1,11 +1,46 @@
 # A collection of notes for power management on Linux
 
-- [Powertop](https://wiki.archlinux.org/title/powertop)
+The most common tools
+- [Powertop](https://wiki.archlinux.org/title/powertop) - Tool to identify ways to optimize power consumption. Does not have a daemon or anything like it.
 - tlp
-- auto-cpufreq
+- Laptop Mode Tools 
+- [auto-cpufreq](https://github.com/AdnanHodzic/auto-cpufreq) - Tries to let the kernel do the heavy lifting. This is my goto choice, but it falls short in certain areas such as ALPM. Recommends to run thermald alongside.
+- thermald - TODO.
+- [pm-utils](https://cgit.freedesktop.org/pm-utils/tree/README) - Don't know how this compares to the others. I think TLP depend on pm-utils.
+- GNOME Power Profiles - This is appearently crap...
+- UPower
+
+(Does not include power management features that seem irrelevant for my laptop, like harddrive stuff, XFS etc.)
+| Tool              | laptop_mode | Disable WOL | Disable HAL polling | Intel Audio power save | PCIE ASPM
+| pm-utils          |             | *            | *                  | *                      | *  
+| TLP               |             | *            | *                  | *                      | *  
+| Laptop Mode Tools |             | *            | *                  | *                      | *  
+| auto-cpufreq      |             | *            | *                  | *                      | *  
+| thermald          |             | *            | *                  | *                      | *  
+| pm-utils          | yes         | yes          | yes                | yes                    | yes
+
+- Intel Audio power save - Seems to be enabled by default
+- ASPM seems to have good settings by defaul. One liner to check status: `sudo lspci -vvv | grep LnkCtl`
+
+## Storage
+
+According to [ArchWiki](https://wiki.archlinux.org/title/Solid_state_drive) ALPM is usually disabled by default which can consume a lot of power.
+
+
+
+## Sleep, hibernate and other scary stuff
 
 `cat /sys/power/mem_sleep`
 
+
+# Resources
+
+- [Good resource for ALPM](https://wireless.wiki.kernel.org/en/users/documentation/aspm)
+
+## Power management in Linux distros
+
+- [Open SUSE](https://documentation.suse.com/sles/15-SP3/html/SLES-all/cha-tuning-power.html)
+- [Ubuntu](https://wiki.ubuntu.com/Kernel/PowerManagement/PowerSavingTweaks)
 
 
 

@@ -20,3 +20,4 @@ firefox "https://addons.mozilla.org/firefox/downloads/file/3539390/"
 
 # TODO: Find a way to install other Firefox configurations:
 # Disable "mute tab"-button - browser.tabs.showAudioPlayingIcon false
+# Disable firefox password manager - sigon.rememberSignons false

@@ -11,7 +11,7 @@ case ${answer:0:1} in
 y | Y)
   sudo -v
   current=$(uname -r)
-  available=$(dpkg -l | grep -Po "linux-image\S*generic")
+  available=$(dpkg -l | grep "ii" | grep -Po "linux-image\S*generic")
   remove=()
   for name in $available; do
     if [[ ${name/$current/} == ${name} ]]; then
