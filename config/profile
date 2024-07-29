@@ -41,5 +41,3 @@ export DCONF_PROFILE=$HOME/.config/dconf/profile
 
 # From: https://forum.snapcraft.io/t/scrolling-in-firefox-snap/21162/2
 export MOZ_USE_XINPUT2=1
-# From: https://www.omgubuntu.co.uk/2022/10/fix-firefox-blurry-wayland-fonts-ubuntu
-export MOZ_ENABLE_WAYLAND=1
