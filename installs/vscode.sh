@@ -14,20 +14,9 @@ code --install-extension eamodio.gitlens
 # This plugin does no longer work with podman: https://github.com/microsoft/vscode-docker/issues/3766
 code --install-extension ms-azuretools.vscode-docker
 
-code --install-extension ms-vscode.makefile-tools
 # TODO: Replace if there ever is a plugin that integrates to the official test API.
 # See: https://github.com/hbenl/vscode-mocha-test-adapter/issues/184
 code --install-extension hbenl.vscode-mocha-test-adapter
-
-# Prefer ronnidc.nunjucks over eseom.nunjucks-template for now.
-# They seem very similar but ronnidc seems:
-# - More active on Github
-# - more lightweight (it is basically only TextMate syntax files packaged as a vscode extension)
-# On the other hand:
-# - TextMate, is it really a good way to implement syntax highlighting?
-# - It is only a single dependency.
-# - ronnidc does currently not have a license (See issues #33)
-code --install-extension ronnidc.nunjucks
 
 code --install-extension dbaeumer.vscode-eslint
 

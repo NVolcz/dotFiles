@@ -1,15 +1,17 @@
 [user]
-	name = NVolcz
-	email = niklas.volcz@gmail.com
+  name = NVolcz
+  email = niklas.volcz@gmail.com
 
 [alias]
-	lg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all
+  lg = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all
   aliases = config --get-regexp alias
   autoamend = commit --amend -CHEAD
   diffs = diff --staged
   wdiff = diff --word-diff
   root = rev-parse --show-toplevel
   reset-origin = !"git branch -f \"$1\" \"origin/$1\" #"
+  whoami = "!echo \"$(git config user.name) ($(git config user.email))\""
+  please = push --force-with-lease
 
 [merge]
   conflictstyle = diff3
@@ -33,16 +35,30 @@
  date = iso
 
 [filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
   
 [color "branch"]
-    current = yellow reverse
-    local = yellow
-    remote = green
+  current = yellow reverse
+  local = yellow
+  remote = green
+
 [fetch]
-	prune = true
+  prune = true
+
 [init]
-	defaultBranch = main
+  defaultBranch = main
+
+[includeIf "gitdir:~/git/controla/"]
+  path = ~/git/controla/.gitconfig
+
+[includeIf "gitdir:~/git/springflod/"]
+  path = ~/git/springflod/.gitconfig
+[credential]
+	helper = 
+	helper = /usr/local/bin/git-credential-manager
+	credentialStore = secretservice
+[credential "https://dev.azure.com"]
+	useHttpPath = true

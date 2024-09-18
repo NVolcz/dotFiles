@@ -32,8 +32,11 @@ time_total:  %{time_total}s\n
 
 Command: `curl -w "@curl-format.txt" -o /dev/null -s "http://wordpress.com/"`
 
-## Fix end-of-line in Git repository
+## Fix missing newline EOF in Git repository
 ```git ls-tree --full-tree -r --name-only HEAD | head -n 3 | tee /dev/tty | xargs -I{} sed -i -e '$a\' {}```
+
+From [Stackoverflow](https://stackoverflow.com/a/57770973):
+```for f in $(git grep --cached -Il ''); do tail -c1 $f | read -r _ || echo >> $f; done```
 
 ## Download apt package and dependencies
 Useful for installing a package on a computer without network.

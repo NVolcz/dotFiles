@@ -1,5 +1,10 @@
-[org/freedesktop/ibus/general]
-hotkey=['']
+# See schemas at: https://github.com/GNOME/gsettings-desktop-schemas/tree/master/schemas
+# The value inside the brackets are the path of the schema
+
+# It seems that symlinked keyfiles are automatically converted to files
+# by copying the symlink destination. This causes edits in this file not be 
+# written to the dconf file.
+
 
 [org/gnome/desktop/wm/keybindings]
 switch-group=['']
@@ -15,24 +20,18 @@ clock-format='24h'
 clock-show-date=true
 clock-show-seconds=false
 
-[org.gnome.desktop.peripherals.touchpad]
+[org/gnome/desktop/peripherals/touchpad]
 natural-scroll=false
 
-[org.gnome.shell.extensions.dash-to-dock]
-autohide=true
+[org/gnome/shell/extensions/dash-to-dock]
+dock-fixed=false
 
-[org.gnome.settings-daemon.plugins.color]
+[org/gnome/settings-daemon/plugins/color]
 night-light-enabled=true
 
-[org.freedesktop.ibus.panel.emoji]
-hotkey=['']
-
-[org.gnome.desktop.calendar]
+[org/gnome/desktop/calendar]
 show-weekdate=true
 
-[org.gnome.nautilus.preferences]
+[org/gnome/nautilus/preferences]
 default-sort-order = 'type'
-
-[org.gnome.desktop.peripherals.touchpad]
-natural-scroll=false
 

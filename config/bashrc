@@ -148,7 +148,7 @@ alias l='ls'
 alias docker='podman'
 
 # Found https://www.reddit.com/r/programming/comments/3evbbk/how_to_write_a_git_commit_message/ctiuwwz
-alias whatthecommit='git commit -m "$(curl -s whatthecommit.com/index.txt)"'
+alias whatthecommit='git commit -m "$(curl -s https://www.whatthecommit.com/index.txt)"'
 
 # Found at: https://stackoverflow.com/questions/33150176/get-subnet-mask-in-linux-using-bash/33150670#33150670
 alias whichnetwork="ip -o -f inet addr show | awk '/scope global/ {print \$4}'"
@@ -193,6 +193,8 @@ highlight() {
 
 set -o vi
 export EDITOR='vim'
+
+export PAGER='less'
 
 # Nice when doing pomodoro. Sleeps specified number of minutes.
 pomo() {
@@ -262,3 +264,9 @@ export LANG='en_GB.UTF-8'
 
 # Borrowed from: https://anarc.at/blog/2020-03-02-moving-dconf-entries-to-git/
 export DCONF_PROFILE=$HOME/.config/dconf/profile
+
+export KIND_EXPERIMENTAL_PROVIDER=podman
+eval "$(mise activate bash)"
+
+export CDPATH=".:~:~/git:~/git/controla"
+

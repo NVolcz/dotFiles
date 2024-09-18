@@ -21,3 +21,10 @@ firefox "https://addons.mozilla.org/firefox/downloads/file/3539390/"
 # TODO: Find a way to install other Firefox configurations:
 # Disable "mute tab"-button - browser.tabs.showAudioPlayingIcon false
 # Disable firefox password manager - sigon.rememberSignons false
+
+
+# Firefox settings:
+# privacy.trackingprotection.enabled - true
+# https://wiki.archlinux.org/title/Firefox#Hardware_video_acceleration
+
+# signon.rememberSignons;false - Disable Firefox password manager.

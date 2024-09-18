@@ -43,6 +43,28 @@ According to [ArchWiki](https://wiki.archlinux.org/title/Solid_state_drive) ALPM
 - [Ubuntu](https://wiki.ubuntu.com/Kernel/PowerManagement/PowerSavingTweaks)
 
 
+# CPU frequency scaling
+
+https://wiki.archlinux.org/title/CPU_frequency_scaling
+
+`schedutil` was used on my UX303. This is because of the cpu scaling driver being set to `intel_cpufreq`.
+```cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_driver```
+
+It seems reasonable to asume that the hardware backed intel pstate scaling would do a better job.
+
+How to change it to pstate: https://askubuntu.com/a/1184512
+
+Benchmarks: https://www.phoronix.com/review/linux50-pstate-cpufreq/6
+
+Some people seem to really dislike [shedutil](https://www.phoronix.com/forums/forum/software/general-linux-open-source/1486834-experimental-schedutil-patches-yield-30-boost-to-web-browser-benchmark-on-linux?p=1486848#post1486848).
+Some people seem to reallt dislike [intel pstate](https://www.phoronix.com/forums/forum/hardware/processors-memory/1173150-initial-benchmarks-of-schedutil-performance-on-linux-5-7-show-room-still-for-improvement?p=1214010#post1214010).
+
+https://www.phoronix.com/review/xeon-linux57-schedutil/7
+https://www.phoronix.com/review/amd-linux511-perfgov/2
+
+I think I found [the reason](https://www.reddit.com/r/linux/comments/ihdozd/linux_kernel_58_defaults_to_passive_mode_for/) but I am not sure if it is valid:
+https://www.phoronix.com/news/P-State-Passive-Def-For-No-HWP
+
 
 # TODO
 - [Investigate hiberation](https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate)

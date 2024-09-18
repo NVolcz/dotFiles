@@ -9,9 +9,12 @@
     "cSpell.language": "en-GB,sv-SE",
     "redhat.telemetry.enabled": true,
     "cSpell.userWords": [
+        "Controla",
         "Springflod",
         "Venor"
     ],
     "diffEditor.diffAlgorithm": "advanced",
-    "explorer.autoReveal": true
+    "explorer.autoReveal": true,
+    "security.workspace.trust.untrustedFiles": "open",
+    "cSpell.enabled": false
 }
