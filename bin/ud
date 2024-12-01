@@ -16,3 +16,6 @@ pipupgrade --yes --latest
 go get -u all
 
 cargo install-update -a
+
+rclone selfupdate
+

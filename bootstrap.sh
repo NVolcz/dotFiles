@@ -74,7 +74,7 @@ function linkDotFiles() {
 linkDotFiles "$dotfiles_dir/config" "$HOME"
 
 # I could put the files in "bin" under "config/local/bin" but that would
-# mix configuration files with scripts so I think it is wise
+# mix configuration files with scripts so I think it is wise 
 if [[ ! -d "$HOME/.local/bin" ]]; then
   mkdir -p "$HOME/.local/bin"
 fi

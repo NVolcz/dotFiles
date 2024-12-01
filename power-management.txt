@@ -1,15 +1,49 @@
 # A collection of notes for power management on Linux
 
+The best setup seems to be auto-cpufreq + thermald. PowerTop can be used to troubleshoot and finetune settings but don't think it is necessary. Many tools interfere with each other so it is in my experience best to keep it simple.
+
 - [Powertop](https://wiki.archlinux.org/title/powertop)
 - tlp
 - auto-cpufreq
+- thermald
+- [cpufreq](https://github.com/konkor/cpufreq) (it is actually used by auto-cpufreq)
+
+A good wiki of tools can be found here: https://wiki.archlinux.org/title/CPU_frequency_scaling
 
 `cat /sys/power/mem_sleep`
 
 
+# PowerTop vs. TLP
+
+https://linrunner.de/tlp/faq/powertop.html
+
+[Regarding VM writeback](https://askubuntu.com/a/1228723), PowerTop takes a more naive approach that works well for laptops - my case.
 
 
 # TODO
 - [Investigate hiberation](https://wiki.archlinux.org/title/Power_management/Suspend_and_hibernate)
 - Investigate Intel Rapid Start Technology
 - Investigate possibility to use suspend-then-hibernate
+
+# XPS 9320
+
+- https://wiki.archlinux.org/title/Dell_XPS_13_Plus_(9320)
+  - This bug is preventing sleep? https://bugzilla.kernel.org/show_bug.cgi?id=213047
+- https://github.com/intel/S0ixSelftestTool
+  - Using `./s0ix-self-test.sh -s` confirms the processor is able to achieve s0ix.
+- Interesting thread: https://www.dell.com/community/en/conversations/xps/xps-13-plus-ubuntu-2204-does-not-support-deep-sleep/647f9fa5f4ccf8a8de483a80
+- According to [this thread](https://www.dell.com/community/en/conversations/xps/proscons-ahci-vs-raid-on-xps13-9300-nvme/647f89cef4ccf8a8de97b145) I should use AHCI instead of VMD/Raid (related to [this bug report](https://bugzilla.kernel.org/show_bug.cgi?id=211879)).
+
+
+# Intel p_state driver vs. acpi
+
+Kernel Documentation:
+https://www.kernel.org/doc/Documentation/cpu-freq/intel-pstate.txt
+https://www.kernel.org/doc/Documentation/cpu-freq/user-guide.txt
+https://www.kernel.org/doc/Documentation/cpu-freq/governors.txt
+https://www.kernel.org/doc/html/v6.2/admin-guide/pm/intel_pstate.html
+https://www.kernel.org/doc/html/v6.2/admin-guide/pm/intel_pstate.html#intel-pstate-vs-acpi-cpufreq
+
+Performance tests:
+https://www.phoronix.com/review/intel_pstate_linux315/3
+https://www.phoronix.com/review/linux50-pstate-cpufreq

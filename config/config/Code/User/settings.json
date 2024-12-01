@@ -10,9 +10,16 @@
     "cSpell.language": "en-GB,sv-SE",
     "redhat.telemetry.enabled": true,
     "cSpell.userWords": [
+        "celex",
+        "Kravefterlevnad",
+        "säkerhetsbranchen",
         "Springflod",
         "Venor"
     ],
     "diffEditor.diffAlgorithm": "advanced",
-    "explorer.autoReveal": true
+    "explorer.autoReveal": true,
+    "workbench.editorAssociations": {
+        "*.pdf": "default"
+    },
+    "dev.containers.dockerPath": "podman"
 }
