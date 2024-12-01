@@ -176,16 +176,20 @@ alias curlh='curl -s -D - -o /dev/null'
 
 alias rm='trash'
 
-alias urldecode='python -c "import sys, urllib as ul; print ul.unquote_plus(sys.argv[1])"'
+alias urldecode='python -c "import sys, urllib.parse; print(urllib.parse.unquote(sys.argv[1]))"'
 
 # TODO: add option to encode all characters
-alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1])"'
+# TODO: Handle piped input
+alias urlencode='python -c "import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1], safe=\"\"))"'
 
 #Utility required by all below functions.
 #https://stackoverflow.com/questions/369758/how-to-trim-whitespace-from-bash-variable#comment21953456_3232433
 alias trim="sed -e 's/^[[:space:]]*//g' -e 's/[[:space:]]*\$//g'"
 
 alias groot='cd $(git root)'
+
+# From: https://ubuntuforums.org/showthread.php?t=2488028&p=14147810#post14147810
+alias lsblk='lsblk -e 7 -o name,type,size,FSAVAIL,FSUSE%,fstype,mountpoint'
 
 highlight() {
   grep -E --color "$1|$"
@@ -264,9 +268,9 @@ export LANG='en_GB.UTF-8'
 
 # Borrowed from: https://anarc.at/blog/2020-03-02-moving-dconf-entries-to-git/
 export DCONF_PROFILE=$HOME/.config/dconf/profile
-
 export KIND_EXPERIMENTAL_PROVIDER=podman
-eval "$(mise activate bash)"
-
 export CDPATH=".:~:~/git:~/git/controla"
 
+eval "$(mise activate bash)"
+
+complete -C /usr/bin/terraform terraform

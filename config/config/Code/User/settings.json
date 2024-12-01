@@ -1,4 +1,5 @@
 {
+  "workbench.colorTheme": "Default Dark+",
   "window.titleBarStyle": "custom",
   "editor.minimap.enabled": false,
   "testExplorer.useNativeTesting": true,
@@ -12,5 +13,6 @@
   "cSpell.enabled": false,
   "workbench.iconTheme": "material-icon-theme",
   "editor.wordWrap": "wordWrapColumn",
-  "editor.wordWrapColumn": 120
+  "editor.wordWrapColumn": 120,
+  "dev.containers.dockerPath": "podman"
 }
