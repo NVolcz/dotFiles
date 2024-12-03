@@ -8,4 +8,3 @@ sudo apt install -y \
   podman \
   shfmt
 
-pip install pipupgrade

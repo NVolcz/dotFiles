@@ -28,3 +28,5 @@ firefox "https://addons.mozilla.org/firefox/downloads/file/3539390/"
 # https://wiki.archlinux.org/title/Firefox#Hardware_video_acceleration
 
 # signon.rememberSignons;false - Disable Firefox password manager.
+# browser.tabs.closeWindowWithLastTab;false - Do not close Firefox when the last tab is closed.
+# browser.quitShortcut.disabled;false - https://blog.wxm.be/2021/08/18/firefox-finally-lets-you-disable-ctrl-q.html
