@@ -10,6 +10,10 @@ sudo fwupdmgr update -y
 
 sudo snap refresh
 
-go get -u all
+if command -v go &> /dev/null; then
+  go get -u all
+fi
 
-cargo install-update -a
+if command -v cargo &> /dev/null; then
+  cargo install-update -a
+fi

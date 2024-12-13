@@ -1,20 +1,16 @@
 {
-    "window.titleBarStyle": "custom",
-    "editor.minimap.enabled": false,
-    "testExplorer.useNativeTesting": true,
-    "editor.rulers": [
-        80,
-        120
-    ],
-    "cSpell.language": "en-GB,sv-SE",
-    "redhat.telemetry.enabled": true,
-    "cSpell.userWords": [
-        "Controla",
-        "Springflod",
-        "Venor"
-    ],
-    "diffEditor.diffAlgorithm": "advanced",
-    "explorer.autoReveal": true,
-    "security.workspace.trust.untrustedFiles": "open",
-    "cSpell.enabled": false
+  "window.titleBarStyle": "custom",
+  "editor.minimap.enabled": false,
+  "testExplorer.useNativeTesting": true,
+  "editor.rulers": [80, 120],
+  "cSpell.language": "en-GB,sv-SE",
+  "redhat.telemetry.enabled": true,
+  "cSpell.userWords": ["Controla", "Springflod", "Venor"],
+  "diffEditor.diffAlgorithm": "advanced",
+  "explorer.autoReveal": true,
+  "security.workspace.trust.untrustedFiles": "open",
+  "cSpell.enabled": false,
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.wordWrap": "wordWrapColumn",
+  "editor.wordWrapColumn": 120
 }
