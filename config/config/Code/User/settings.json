@@ -14,5 +14,8 @@
   "workbench.iconTheme": "material-icon-theme",
   "editor.wordWrap": "wordWrapColumn",
   "editor.wordWrapColumn": 120,
-  "dev.containers.dockerPath": "podman"
+  "dev.containers.dockerPath": "podman",
+  "terminal.integrated.env.linux": {
+    "TMUX": ""
+  }
 }
